@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Admin">
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="admin_phonenumber" jdbcType="VARCHAR" property="adminPhoneNumber" />
+    <result column="admin_post" jdbcType="VARCHAR" property="adminPost" />
+    <result column="admin_power" jdbcType="INTEGER" property="adminPower" />
+    <result column="admin_salary" jdbcType="VARCHAR" property="adminSalary" />
+    <result column="admin_date" jdbcType="VARCHAR" property="adminDate" />
+    <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    admin_id, admin_name, admin_password, admin_phonenumber, admin_post, admin_power, 
+    admin_salary, admin_date, admin_status
+  </sql>
+
+  <!--根据id查询员工详情-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+
+  <!--删除离职员工-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+
+<!--添加员工-->
+  <insert id="insert" parameterType="com.bj186.pojo.Admin">
+    insert into admin (admin_id, admin_name, admin_password,
+      admin_phonenumber, admin_post, admin_power,
+      admin_salary, admin_date, admin_status
+      )
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR},
+      #{adminPhoneNumber,jdbcType=INTEGER}, #{adminPost,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR},
+      #{adminSalary,jdbcType=VARCHAR}, #{adminDate,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <!--根据条件查询员工列表-->
+  <select id="selectByStatus"  resultMap="BaseResultMap" statementType="CALLABLE">
+    call admin(
+    #{adminStatus,mode=IN},
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{rows,mode=OUT,jdbcType=INTEGER}
+    )
+  </select>
+
+  <!--动态生成修改sql语句-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Admin">
+    update admin
+    <set>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhoneNumber != null">
+        admin_phonenumber = #{adminPhoneNumber,jdbcType=INTEGER},
+      </if>
+      <if test="adminPost != null">
+        admin_post = #{adminPost,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPower != null">
+        admin_power = #{adminPower,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSalary != null">
+        admin_salary = #{adminSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDate != null">
+        admin_date = #{adminDate,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        admin_status = #{adminStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+
+  <select id="ccSelectByIdWX" resultMap="BaseResultMap">
+    select * from admin where  admin_id=#{id} and admin_post='维修人员'
+  </select>
+  <select id="ccSelectByIdKF" resultMap="BaseResultMap">
+    select * from admin where  admin_id=#{id} and admin_post='客服'
+  </select>
+  <select id="ccSelectAllKF" resultMap="BaseResultMap">
+    select * from admin where  admin_status=0  and admin_post='客服'
+  </select>
+
+  <select id="ccSelectAllWX" resultMap="BaseResultMap">
+    select * from admin where  admin_status=0  and admin_post='维修人员'
+  </select>
+
+  <select id="loginAdmin" parameterType="com.bj186.pojo.Admin" resultMap="BaseResultMap">
+    select * from admin
+    <where>
+    <trim suffixOverrides=",">
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhoneNumber != null">
+        admin_phonenumber = #{adminPhoneNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    </where>
+  </select>
+
+  <select id="getAdmin" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from Admin
+    where
+    admin_name = #{username}
+  </select>
+</mapper>

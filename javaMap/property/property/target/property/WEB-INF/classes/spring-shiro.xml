@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Spring IOC对shiro的集成 -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="COOKIE_NAME" />
+        <!-- 保证该系统不会受到跨域的脚本操作攻击 -->
+        <property name="httpOnly" value="true" />
+        <!-- rememberMe 30天 -->
+        <property name="maxAge" value="2592000" />
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+        <property name="cookie" ref="rememberMeCookie" />
+    </bean>
+
+    <!-- 配置ModularRealmAuthenticator，可实现多Realm认证 -->
+    <bean id="authenticator" class="com.bj186.shiro.PointRealmAuthenticator">
+        <!-- 配置Realm认证策略 -->
+        <property name="definedRealms">
+            <map>
+                <entry key="userRealm" value-ref="userRealm" />
+                <entry key="adminRealm" value-ref="adminRealm" />
+            </map>
+        </property>
+    </bean>
+    <!-- 配置自定义Realm，自定义Realm需要继承org.apache.shiro.realm.AuthorizingRealm -->
+    <bean id="userRealm" class="com.bj186.shiro.UserRealm">
+        <!-- 配置密码匹配器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 加密次数 -->
+                <property name="hashIterations" value="11"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="adminRealm" class="com.bj186.shiro.AdminRealm">
+        <!-- 配置密码匹配器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 加密次数 -->
+                <property name="hashIterations" value="11"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置权限管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 加载上面配置好的认证策略-->
+        <property name="authenticator" ref="authenticator"/>
+        <!-- 加载自定义的认证类 -->
+        <property name="realms">
+            <list>
+                <ref bean="userRealm" />
+                <ref bean="adminRealm" />
+            </list>
+        </property>
+        <property name="rememberMeManager" ref="rememberMeManager" />
+    </bean>
+
+    <bean id="myLogoutFilter" class="com.bj186.shiro.MyLogoutFilter" >
+        <property name="redirectUrl" value="/login.html"/>
+    </bean>
+
+
+    <!-- Shiro生命周期处理器 -->
+    <!-- 配置lifecycleBeanPostProcessor，Shiro的生命周期管理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+    <!-- 启用Spring IOC容器对Shiro管理，但必须配置了lifecycleBeanPostProcessor后才可以使用 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
+
+    <!-- 开启securityManager管理所有用户的安全操作,securityManager来自Spring IOC容器的配置 -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager" />
+    </bean>
+
+    <!--
+        配置shiro过滤器,这里的id必须与web.xml中的shiroFilter filterName一致
+    -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />
+        <property name="loginUrl" value="/login.html" />
+        <property name="successUrl" value="/index.html" />
+        <property name="unauthorizedUrl" value="/error.html" />
+        <!--自定义的filter-->
+        <property name="filters">
+            <map>
+                <entry key="logout" value-ref="myLogoutFilter"/>
+            </map>
+        </property>
+
+        <!--
+            配置需要受保护的页面
+            以及访问这些页面需要的权限
+            1) anon  可以匿名访问的页面
+            2) authc 必须认证后才可以访问的页面
+        -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--加载静态资源-->
+                /js/** = anon
+                /css/** = anon
+                /imgages/** = anon
+                /fonts/** = anon
+                /lib/** = anon
+                <!--加载不需要认证的页面-->
+                /loginadmin.html = anon
+                /login.html = anon
+                /findpwdnew.html = anon
+                /error.html = anon
+                /admin/reg = anon
+                /user/reg = anon
+                /user/login = anon
+                /admin/login = anon
+                /html/user/reg.html = anon
+                /user/reg = anon
+                /logout = logout
+                <!--权限控制-->
+                /car/** = roles[superadmin]
+                /cars/** = roles[superadmin]
+                /park/** = roles[superadmin]
+                /property/** = roles[superadmin]
+                /propertyAdmin/** = roles[superadmin]
+                /ccappeal/** = roles[superadmin]
+                /cccost/** = roles[superadmin]
+                /cc/** = roles[superadmin]
+                /ccUser/** = roles[superadmin]
+                <!--管理员权限-->
+                /car/** = roles[admin]
+                /cars/** = roles[admin]
+                /park/** = roles[admin]
+                /admin.html = roles[admin]
+                /items/** = roles[admin]
+                /property/** = roles[admin]
+                /ccappeal/** = roles[admin]
+                /cccost/** = roles[admin]
+                /cc/** = roles[admin]
+                /ccUser/** = roles[admin]
+                <!--用户权限-->
+                /property/** = roles[all]
+                /user/** = roles[all]
+                /addrepair/** = roles[all]
+                /onpay/** = roles[all]
+                /msg/** = roles[all]
+                /cost/** = roles[all]
+                /complain/** = roles[all]
+                /user.html = roles[all]
+                /all.html = roles[all]
+                /test/**= anon
+                /user/**= anon
+
+
+                <!--除以上配置外，其他请求全部必须认证-->
+                /** = authc
+            </value>
+        </property>
+    </bean>
+</beans>

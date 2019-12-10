@@ -1,0 +1,10 @@
+#spring 服务器的访问端口
+server:
+  port: 8008
+#eureka配置 服务注册到哪里
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://cloud.beetles.net:8087/eureka/,http://cloud.beetles.cn:8088/eureka/,http://cloud.beetles.com:8089/eureka/
+

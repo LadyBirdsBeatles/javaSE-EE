@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>以处理</title>
+    <link rel="stylesheet" href="lib/layui/css/layui.css?t=1560414887305" media="all">
+    <style>
+        body {
+            margin: 10px;
+        }
+
+        .demo-carousel {
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看回复</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">评价</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="lib/layui/layui.js?t=1560414887305"></script>
+<script>
+    layui.config({
+        version: '1560414887305' //为了更新 js 缓存，可忽略
+    });
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function () {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+            , slider = layui.slider //滑块
+
+        //向世界问个好
+        layer.msg('Hello World');
+
+        //监听Tab切换
+        element.on('tab(demo)', function (data) {
+            layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                tips: 1
+            });
+        });
+
+        //执行一个 table 实例
+        table.render({
+            elem: '#demo'
+            , height: 600
+            , url: '/repair/past' //数据接口
+            , title: '报修表'
+            , page: true //开启分页
+            /*,toolbar: 'default'*/ //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            , cols: [[ //表头
+                {field: 'repairId', title: 'ID', sort: true, fixed: 'left', align: 'center'}
+                , {field: 'repairTitle', title: '标题', align: 'center'}
+                , {field: 'repairDate', title: '提交时间', sort: true, align: 'center'}
+                , {field: 'repairState', title: '处理状态', sort: true, align: 'center',
+                    templet: function (item) {
+                        var s = item.repairState;
+                        if (s == 2) {
+                            return "处理完成待评价";
+                        } else if (s == 3) {
+                            return "已评价";
+                        }
+                        return null;
+                    }
+                }
+                , {field: 'repairEva', title: '评价状态', sort: true, align: 'center'}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo', width: 250}
+            ]]
+            ,id:"cost"
+            , response: {
+                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+            }
+            , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.rows.item //解析数据列表
+                };
+            }
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                , layEvent = obj.event; //获得 lay-event 对应的值
+           if (layEvent === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    /* 删除评价操作*/
+                    $.ajax({
+                        url: '/del',
+                        cache: false,
+                        type: "post",
+                        dataType: 'json',
+                        data: JSON.stringify(data.id),
+                        contentType: 'application/json;charset=utf-8',
+                        success: function (backData) {
+                            console.log(backData)
+                            if (backData.state) {
+                                layer.msg('已删除')
+                            } else {
+                                layer.msg('请求中')
+                            }
+
+                        },
+                        error: function (e) {
+                            console.log(e)
+                        }
+
+                    })
+                });
+            } else if (layEvent === 'edit') {
+               /* 评价*/
+               layer.open({
+                   type: 2
+                   , fix: false //不固定
+                   , maxmin: true
+                   , area: ['600px', '500px']
+                   , btn: ['关闭']
+                   , title: '评价'
+                   , anim: 5
+                   , shadeClose: true
+                   , shade: 0.4
+                   , content: 'repair_appraise.html',  //url 为子布局的url路径
+                   success: function (layero, index) {
+                       var iframe = window['layui-layer-iframe' + index];
+                       iframe.appraise(JSON.stringify(data))
+                   },
+                   cancel: function(){
+                       table.reload("cost",{
+                           page: {
+                               curr: 1 //重新从第 1 页开始
+                           }
+                       })
+                   }
+               });
+            }else if(layEvent === 'detail'){
+               /* 查看回复*/
+               layer.open({
+                   type: 2
+                   , fix: false //不固定
+                   , maxmin: true
+                   , area: ['600px', '500px']
+                   , btn: ['关闭']
+                   , title: '回复'
+                   , anim: 5
+                   , shadeClose: true
+                   , shade: 0.4
+                   , content: 'psat_repair_sresult.html',  //url 为子布局的url路径
+                   success: function (layero, index) {
+                       var iframe = window['layui-layer-iframe' + index];
+                       iframe.reply(JSON.stringify(data.repairId))
+                   },
+                   cancel: function(){
+                       table.reload("cost",{
+                           page: {
+                               curr: 1 //重新从第 1 页开始
+                           }
+                       })
+                   }
+               });
+            }
+        });
+    });
+</script>
+</body>
+</html>

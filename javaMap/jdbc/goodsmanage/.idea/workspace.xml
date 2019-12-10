@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="managergoods" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f5ea621-a7a3-489a-a01e-9ac2626e59f1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints>
+      <file url="file://$PROJECT_DIR$/src/com/xiaochen/goodsmanager/Servlet/registerServlet.java" />
+    </disable_hints>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="goodsmanage" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Jsp File" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/layui/limit/my.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com/xiaochen/goodsmanager/Servlet/registerServlet.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/web/layui/limit/writ.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="checksumPolicy" value="FAIL" />
+        <option name="failureBehavior" value="FAST" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1OzMJ4HBOskq3W0FHZJk41m8tNz" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553417433992" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.22377622" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.xiaochen.goodsmanager.dao.GoodsDaoimpl" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\web\layui\limit" />
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\web\admin" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.xiaochen.goodsmanager.Servlet" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaIDEA\IDEA\WorkSpaces\JavaEE\goodsmanage\properties" />
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\web\layui\limit" />
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\driver" />
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\web\lib" />
+      <recent name="D:\JavaIDEA\IDEA\IDEA\WorkSpaces\goodsmanage\web\WEB-INF\lib" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Demo">
+    <configuration name="A" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.xiaochen.goodsmanager.test.A" />
+      <module name="goodsmanage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xiaochen.goodsmanager.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.xiaochen.goodsmanager.test.Demo" />
+      <module name="goodsmanage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xiaochen.goodsmanager.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Mytest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.xiaochen.goodsmanager.test.Mytest" />
+      <module name="goodsmanage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xiaochen.goodsmanager.view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 9" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <deployment>
+        <artifact name="managergoods">
+          <settings>
+            <option name="CONTEXT_PATH" value="/managergoods" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_goodsmanage_2" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="64929" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Debug with VisualVM">
+        <option name="DEBUG_PORT" value="64930" />
+        <option name="visualVMId" value="742019063400" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="managergoods" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Mytest" />
+      <item itemvalue="Application.Demo" />
+      <item itemvalue="Application.A" />
+      <item itemvalue="Tomcat Server.Tomcat 9" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Demo" />
+        <item itemvalue="Application.A" />
+        <item itemvalue="Application.Mytest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SQLPlugin.ProjectConfiguration">
+    <queries />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\xiaochen\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f5ea621-a7a3-489a-a01e-9ac2626e59f1" name="Default Changelist" comment="" />
+      <created>1552640461979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552640461979</updated>
+      <workItem from="1552640466588" duration="1321000" />
+      <workItem from="1552730489954" duration="7000000" />
+      <workItem from="1552808123427" duration="15133000" />
+      <workItem from="1552869937855" duration="36883000" />
+      <workItem from="1552915044802" duration="7654000" />
+      <workItem from="1552956291535" duration="8697000" />
+      <workItem from="1552965308482" duration="24166000" />
+      <workItem from="1553001627942" duration="12003000" />
+      <workItem from="1553043366504" duration="11920000" />
+      <workItem from="1553080193210" duration="868000" />
+      <workItem from="1553130201342" duration="710000" />
+      <workItem from="1553223798902" duration="174000" />
+      <workItem from="1553355187868" duration="8966000" />
+      <workItem from="1553364967641" duration="1358000" />
+      <workItem from="1553368844386" duration="323000" />
+      <workItem from="1553399545496" duration="3999000" />
+      <workItem from="1554804475376" duration="57000" />
+      <workItem from="1554804837894" duration="1431000" />
+      <workItem from="1555313999076" duration="11809000" />
+      <workItem from="1555333810400" duration="3379000" />
+      <workItem from="1555339460173" duration="3624000" />
+      <workItem from="1555375720359" duration="3293000" />
+      <workItem from="1555379774202" duration="2274000" />
+      <workItem from="1555382081902" duration="4348000" />
+      <workItem from="1555396929598" duration="841000" />
+      <workItem from="1555397807669" duration="52000" />
+      <workItem from="1555397890073" duration="1196000" />
+      <workItem from="1555399120312" duration="257000" />
+      <workItem from="1555399411364" duration="677000" />
+      <workItem from="1555400130263" duration="79000" />
+      <workItem from="1555400235147" duration="362000" />
+      <workItem from="1555400625747" duration="9787000" />
+      <workItem from="1555414480285" duration="1685000" />
+      <workItem from="1555419425445" duration="8530000" />
+      <workItem from="1555430512947" duration="4932000" />
+      <workItem from="1555462172566" duration="12695000" />
+      <workItem from="1555497619998" duration="2323000" />
+      <workItem from="1555503107668" duration="14691000" />
+      <workItem from="1555548331674" duration="12117000" />
+      <workItem from="1555570972867" duration="16966000" />
+      <workItem from="1555592958849" duration="12133000" />
+      <workItem from="1555635270279" duration="3079000" />
+      <workItem from="1555639170227" duration="89000" />
+      <workItem from="1555639286829" duration="3945000" />
+      <workItem from="1555645576153" duration="9979000" />
+      <workItem from="1555672070717" duration="16340000" />
+      <workItem from="1555730267307" duration="2086000" />
+      <workItem from="1555750073395" duration="11495000" />
+      <workItem from="1555779873421" duration="1223000" />
+      <workItem from="1555782033717" duration="4787000" />
+      <workItem from="1555822354371" duration="606000" />
+      <workItem from="1556553858071" duration="183000" />
+      <workItem from="1561523506130" duration="677000" />
+      <workItem from="1564979918705" duration="213000" />
+      <workItem from="1564980493442" duration="1124000" />
+      <workItem from="1564983139231" duration="2106000" />
+      <workItem from="1568818846127" duration="745000" />
+      <workItem from="1568819997102" duration="435000" />
+      <workItem from="1569901805779" duration="305000" />
+      <workItem from="1575900258901" duration="414000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="test_bo - 2019.03.18 at 15h 36m 00s.xml">
+      <configuration name="test.bo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_bo - 2019.03.18 at 15h 36m 33s.xml">
+      <configuration name="test.bo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_bo - 2019.03.18 at 15h 36m 36s.xml">
+      <configuration name="test.bo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_bo - 2019.03.18 at 15h 37m 52s.xml">
+      <configuration name="test.bo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_ParticularsView - 2019.03.19 at 16h 24m 29s.xml">
+      <configuration name="test.ParticularsView" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_GoodsView - 2019.03.19 at 16h 24m 35s.xml">
+      <configuration name="test.GoodsView" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_ParticularsView - 2019.03.19 at 16h 27m 44s.xml">
+      <configuration name="test.ParticularsView" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView" selected-index="2">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="548" y="170" key="FileChooserDialogImpl" timestamp="1575900671453">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="548" y="170" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1575900671453" />
+    <state width="1491" height="213" key="GridCell.Tab.0.bottom" timestamp="1575900673251">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1491" height="213" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1575900673251" />
+    <state width="1491" height="213" key="GridCell.Tab.0.center" timestamp="1575900673251">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1491" height="213" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1575900673251" />
+    <state width="1491" height="213" key="GridCell.Tab.0.left" timestamp="1575900673251">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1491" height="213" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1575900673251" />
+    <state width="1491" height="213" key="GridCell.Tab.0.right" timestamp="1575900673251">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1491" height="213" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1575900673251" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/com/xiaochen/goodsmanager/service/GoodsServiceDao.java</url>
+          <line>29</line>
+          <properties class="com.xiaochen.goodsmanager.service.GoodsServiceDao" method="goodshow">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/com/xiaochen/goodsmanager/util/TestWriteJson.java</url>
+          <line>6</line>
+          <properties class="com.xiaochen.goodsmanager.util.TestWriteJson" method="jsonbean">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="goodsmanage" type="b2602c69:ProjectViewProjectNode" />
+        <item name="goodsmanage" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+</project>

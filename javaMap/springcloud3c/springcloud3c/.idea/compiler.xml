@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springcloud-consumer-user-hystrix-dashboard" />
+        <module name="springcloud-provider-user-hystrix-8001" />
+        <module name="springcloud-config-service-7788" />
+        <module name="springcloud-consumer-user-feign-8008" />
+        <module name="springcloud-consumer-user-feign" />
+        <module name="springcloud-eureka-server-8088" />
+        <module name="springcloud-eureka-server-8087" />
+        <module name="springcloud-eureka" />
+        <module name="springsloud-eureka-server-8089" />
+        <module name="springcloud-zuul-9527" />
+        <module name="springcloud-api" />
+        <module name="springcloud-provider-user-8003" />
+        <module name="springcloud-provider-user-8002" />
+        <module name="springcloud-provider-user-8001" />
+        <module name="springcloud-consumer-user-8008" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springcloud-consumer-user-80" target="1.8" />
+      <module name="springcloud-consumer-user-feign" target="1.8" />
+      <module name="springcloud-eureka-server-7001" target="1.8" />
+      <module name="springcloud-eureka-server-8080" target="1.8" />
+      <module name="springcloud-eureka-server-8888" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

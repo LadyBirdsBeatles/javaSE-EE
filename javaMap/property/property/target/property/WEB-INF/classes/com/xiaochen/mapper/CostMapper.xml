@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochen.mapper.CostMapper">
+  <resultMap id="BaseResultMap" type="com.xiaochen.pojo.Cost">
+    <id column="cost_id" jdbcType="INTEGER" property="costId"/>
+    <result column="cost_water" jdbcType="VARCHAR" property="costWater"/>
+    <result column="cost_gas" jdbcType="VARCHAR" property="costGas"/>
+    <result column="cost_power" jdbcType="VARCHAR" property="costPower"/>
+    <result column="cost_air" jdbcType="VARCHAR" property="costAir"/>
+    <result column="cost_other" jdbcType="VARCHAR" property="costOther"/>
+    <result column="cost_date" jdbcType="TIMESTAMP" property="costDate"/>
+    <result column="cost_state" jdbcType="INTEGER" property="costState"/>
+    <association property="user" column="cost_uid" select="com.xiaochen.mapper.UserMapper.ccSelectById"/>
+  </resultMap>
+  <resultMap id="pay" type="com.xiaochen.pojo.Cost">
+    <id column="cost_id" jdbcType="INTEGER" property="costId"/>
+    <result column="cost_water" jdbcType="VARCHAR" property="costWater"/>
+    <result column="cost_gas" jdbcType="VARCHAR" property="costGas"/>
+    <result column="cost_power" jdbcType="VARCHAR" property="costPower"/>
+    <result column="cost_air" jdbcType="VARCHAR" property="costAir"/>
+    <result column="cost_other" jdbcType="VARCHAR" property="costOther"/>
+    <result column="cost_date" jdbcType="TIMESTAMP" property="costDate"/>
+    <result column="cost_state" jdbcType="INTEGER" property="costState"/>
+    <association property="user" column="cost_uid" resultMap="com.xiaochen.mapper.UserMapper.BaseResultMap"/>
+  </resultMap>
+
+  <select id="ccSelectPay" resultMap="pay" statementType="CALLABLE">
+    call costfy(
+    #{userName,mode=IN,jdbcType=VARCHAR},
+    #{userPhonenumber,mode=IN,jdbcType=VARCHAR},
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{count,mode=OUT,jdbcType=INTEGER}
+    )
+  </select>
+
+  <select id="ccSelectAll" resultMap="BaseResultMap" statementType="CALLABLE">
+     call costccfy(
+    #{userName,mode=IN,jdbcType=VARCHAR},
+    #{userPhonenumber,mode=IN,jdbcType=VARCHAR},
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{rows,mode=OUT,jdbcType=INTEGER}
+    )
+  </select>
+  
+  <insert id="ccInsert" parameterType="Cost" useGeneratedKeys="true" keyProperty="cost_id">
+    insert into cost values (null,#{costWater},#{costGas},#{costPower},#{costAir},#{costOther},#{costDate},#{costState},#{user.userId})
+  </insert>
+
+  <select id="ccSelectByUserDate" resultMap="BaseResultMap" >
+    select * from cost where cost_uid=#{userId} and cost_date=#{costDate}
+  </select>
+
+  <update id="ccUpdate" parameterType="Cost">
+    update cost set cost_water=#{costWater},cost_gas=#{costGas},cost_power=#{costPower},
+    cost_air=#{costAir},cost_other=#{costOther},cost_date=#{costDate},cost_state=#{costState},
+    cost_uid=#{user.userId} where cost_id=#{costId}
+  </update>
+
+  <select id="ccSelectById" resultMap="BaseResultMap" >
+    select * from cost where cost_id=#{id}
+  </select>
+
+  <update id="ccUpdateState">
+    update cost set cost_state=1 where cost_id=#{id}
+  </update>
+
+  <!--缴费表-->
+  <select id="selectcostlist" resultMap="BaseResultMap" statementType="CALLABLE">
+  call onpays(
+   #{uid,mode=IN},
+   #{page,mode=IN},
+   #{limits,mode=IN},
+   #{rows,mode=OUT,jdbcType=INTEGER}
+   )
+  </select>
+  <!--缴费成功账单-->
+  <!-- and cost_id=#{pay_id} -->
+  <select id="selectcostsuccess" resultMap="BaseResultMap">
+ SELECT * FROM cost where cost_uid=#{user_id} and cost_state=1 order by  cost_id DESC
+  </select>
+  <!--pay级联账单-->
+  <!-- and cost_id=#{pay_id} -->
+  <select id="selectpayuccess" resultMap="pay">
+ SELECT * FROM cost
+  </select>
+  <sql id="Base_Column_List">
+    cost_id, cost_water, cost_gas, cost_power, cost_air, cost_other, cost_date, cost_state,
+    cost_uid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cost
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cost
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xiaochen.pojo.Cost">
+    insert into cost (cost_id, cost_water, cost_gas,
+      cost_power, cost_air, cost_other,
+      cost_date, cost_state, cost_uid
+      )
+    values (#{costId,jdbcType=INTEGER}, #{costWater,jdbcType=VARCHAR}, #{costGas,jdbcType=VARCHAR},
+      #{costPower,jdbcType=VARCHAR}, #{costAir,jdbcType=VARCHAR}, #{costOther,jdbcType=VARCHAR},
+      #{costDate,jdbcType=DATE}, #{costState,jdbcType=INTEGER}, #{User.userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaochen.pojo.Cost">
+    insert into cost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="costId != null">
+        cost_id,
+      </if>
+      <if test="costWater != null">
+        cost_water,
+      </if>
+      <if test="costGas != null">
+        cost_gas,
+      </if>
+      <if test="costPower != null">
+        cost_power,
+      </if>
+      <if test="costAir != null">
+        cost_air,
+      </if>
+      <if test="costOther != null">
+        cost_other,
+      </if>
+      <if test="costDate != null">
+        cost_date,
+      </if>
+      <if test="costState != null">
+        cost_atate,
+      </if>
+      <if test="User != null">
+        cost_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="costId != null">
+        #{costId,jdbcType=INTEGER},
+      </if>
+      <if test="costEater != null">
+        #{costWater,jdbcType=VARCHAR},
+      </if>
+      <if test="costGas != null">
+        #{costGas,jdbcType=VARCHAR},
+      </if>
+      <if test="costPower != null">
+        #{costPower,jdbcType=VARCHAR},
+      </if>
+      <if test="costAir != null">
+        #{costAir,jdbcType=VARCHAR},
+      </if>
+      <if test="costOther != null">
+        #{costOther,jdbcType=VARCHAR},
+      </if>
+      <if test="costDate != null">
+        #{costDate,jdbcType=DATE},
+      </if>
+      <if test="costAtate != null">
+        #{costAtate,jdbcType=INTEGER},
+      </if>
+      <if test="user != null">
+        #{user.userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaochen.pojo.Cost">
+    update cost
+    <set>
+      <if test="costWater != null">
+        cost_water = #{costWater,jdbcType=VARCHAR},
+      </if>
+      <if test="costGas != null">
+        cost_gas = #{costGas,jdbcType=VARCHAR},
+      </if>
+      <if test="costPower != null">
+        cost_power = #{costPower,jdbcType=VARCHAR},
+      </if>
+      <if test="costAir != null">
+        cost_air = #{costAir,jdbcType=VARCHAR},
+      </if>
+      <if test="costOther != null">
+        cost_other = #{costOther,jdbcType=VARCHAR},
+      </if>
+      <if test="costDate != null">
+        cost_date = #{costDate,jdbcType=DATE},
+      </if>
+      <if test="costState != null">
+        cost_state = #{costState,jdbcType=INTEGER},
+      </if>
+      <if test="user!= null">
+        cost_uid = #{User.userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaochen.pojo.Cost">
+    update cost
+    set cost_eater = #{costWater,jdbcType=VARCHAR},
+      cost_gas = #{costGas,jdbcType=VARCHAR},
+      cost_power = #{costPower,jdbcType=VARCHAR},
+      cost_air = #{costAir,jdbcType=VARCHAR},
+      cost_other = #{costOther,jdbcType=VARCHAR},
+      cost_date = #{costDate,jdbcType=DATE},
+      cost_state = #{costAtate,jdbcType=INTEGER},
+      cost_uid = #{user.userId,jdbcType=INTEGER}
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </update>
+</mapper>

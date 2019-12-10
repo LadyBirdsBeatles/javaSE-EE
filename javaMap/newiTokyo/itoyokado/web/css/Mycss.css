@@ -1,0 +1,13 @@
+#sendNewEmail{
+    width:100px;
+    height: 50px;
+    position: absolute;
+    right: 40px;
+    bottom: 170px;
+    border: 1px solid #DCDEE0;
+    border-radius: 3px;
+    padding: 0px 16px;
+    font-size: 14px;
+    outline:none;
+    box-sizing: border-box;
+}

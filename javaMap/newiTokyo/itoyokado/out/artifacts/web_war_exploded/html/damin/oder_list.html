@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<div class="demoTable">
+    搜索ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../../lib/layui/layui.all.js" charset="utf-8"></script>
+<script src="../../lib/jquery-3.3.1.min.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['table','element'], function(){
+        var table = layui.table,
+        element = layui.element //元素操作
+        //监听Tab切换
+        element.on('tab(demo)', function (data) {
+            layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                tips: 1
+            });
+        });
+        //执行一个 table 实例
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user'
+            ,url: '/page'
+            , title: '用户表'
+            , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            , totalRow: true //开启合计行
+            ,cols: [[
+                {checkbox: true, fixed: true}
+                ,{field:'id', title: 'ID', width:80, sort: true, fixed: true}
+                ,{field:'mapName', title: '名称', width:80}
+                ,{field:'coordinate', title: '坐标', width:80, sort: true}
+                ,{field:'colorValue', title: '颜色', width:80}
+                ,{field:'mapName', title: '积分', sort: true, width:80}
+                ,{field:'mapName', title: '评分', sort: true, width:80}
+                ,{field:'mapName', title: '职业', width:80}
+                ,{field:'mapName', title: '财富', sort: true, width:135}
+                , {fixed: 'mapName', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'}
+            ]]
+            ,id: 'testReload'
+            ,page: true
+            ,height: 415
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+    //监听行工具事件
+    table.on('tool(user)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        var data = obj.data //获得当前行数据
+            , layEvent = obj.event; //获得 lay-event 对应的值
+        if (layEvent === 'detail') {
+            layer.open({
+                type: 2,
+                area: ['1000px', '600px'],
+                title: '修改',
+                offset: 't',
+                shade: 0.6, //遮罩透明度
+                maxmin: true, //允许全屏最小化
+                anim: 1,//0-6的动画形式，-1不开启
+                content: 'add-scope.html' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+        } else if (layEvent === 'del') {
+            layer.confirm('真的删除行么', function (index) {
+                obj.del(); //删除对应行（tr）的DOM结构
+                layer.close(index);
+                //向服务端发送删除指令
+                $(function () {
+                    var s = JSON.stringify(data);
+                    $.ajax({
+                        url: "/delscope",
+                        /* traditional: true,*/
+                        data: {
+                            "rowdata": s
+                        },
+                        type: "post",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.flag === "SUCCESS") {
+                                layer.msg('配送范围删除成功!', {
+                                    icon: 16
+                                    , shade: 0.001
+                                });
+                            } else {
+                                layer.msg('配送范围删除失败!', {
+                                    icon: 16
+                                    , shade: 0.01
+                                });
+
+                            }
+                        }
+                    })
+                })
+            });
+
+        }
+    });
+</script>
+
+</body>
+</html>

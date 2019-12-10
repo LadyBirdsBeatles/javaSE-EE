@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+    <html lang="">
+    <head>
+        <meta charset="UTF-8">
+        <title>table数据渲染</title>
+        <link rel="stylesheet" href="../limit/lib/layui/css/layui.css" media="all">
+    </head>
+<body>
+<table class="layui-hide" id="test"></table>
+<script src="../limit/lib/layui/layui.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#test'
+            ,height: 424
+            ,url: '/page' //数据接口
+            ,page: true //开启分页
+            ,cellMinWidth: 100
+            ,cols: [[ //表头
+                {field:'eid', title: 'ID', sort: true, align: 'center'}
+                ,{field:'ename', title: '用户名', align: 'center'}
+                ,{field:'egender', title: '性别', sort: true, align: 'center'}
+                ,{field:'eage',  title: '年龄', align: 'center'}
+                ,{field:'ebirthday',title: '生日', align: 'center'}
+                ,{field:'department', title: '部门', sort: true, align: 'center'}
+                ,{field:'ejob', title: '职务', align: 'center'}
+                ,{field:'ephonenumber',  title: '电话号码', sort: true, align: 'center'}
+                ,{field:'ehiredate',  title: '入职时间', sort: true, align: 'center'}
+                ,{field:'ecomment',  title: '备注', sort: true, align: 'center'}
+            ]]
+        });
+    });
+</script>
+</body>
+</html>

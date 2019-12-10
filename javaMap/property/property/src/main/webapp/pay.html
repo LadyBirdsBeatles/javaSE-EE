@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>水电煤抄送</title>
+    <link rel="stylesheet" href="lib/layui/css/layui.css" media="all">
+    <style>
+        body{margin: 10px;}
+    </style>
+</head>
+<body>
+<form class="layui-form">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" name="userName" lay-verify="" autocomplete="off" class="layui-input" placeholder="请输入姓名">
+        </div>
+    </div>
+    <button type="button" lay-submit="" class="layui-btn layui-btn-warm " lay-filter="sreachname">查询</button>
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" name="userPhonenumber" lay-verify="sreachphone" autocomplete="off" class="layui-input" placeholder="请输入手机号">
+        </div>
+    </div>
+    <button type="button" lay-submit="" class="layui-btn layui-btn-warm " lay-filter="sreachphone">查询</button>
+</form>
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">缴费</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="lib/layui/layui.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+
+    layui.use([  'layer', 'table',  'element','form'], function(){
+        var
+            layer = layui.layer //弹层
+            ,table = layui.table //表格
+            form=layui.form
+        //执行一个 table 实例
+       var t= table.render({
+            elem: '#demo'
+            ,height: 520
+            ,url: '/ccCost/pay' //数据接口
+            ,title: '用户表'
+            ,page: true //开启分页
+            ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                ,{field: 'costId', title: '账单号',  sort: true, fixed: 'left',}
+                ,{field: 'costDate', title: '费用日期'}
+                ,{field: 'userName', title: '缴费人'}
+                ,{field: 'userDress', title: '物业地址'}
+                ,{field: 'sum', title: '总金额', }
+                ,{field: 'costState', title: '缴费状态', }
+                ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+            ]]
+            ,id:"cost"
+        });
+
+        //监听头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            switch(obj.event){
+                case 'add':
+                   layer.msg("添加")
+                    break;
+                case 'update':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else if(data.length > 1){
+                        layer.msg('只能同时编辑一个');
+                    } else {
+                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+                    }
+                    break;
+                case 'delete':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.msg('删除');
+                    }
+                    break;
+            };
+        });
+
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'detail'){
+                layer.open({
+                    type: 2,
+                    area: ['420px', '400px'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: 'payDetails.html',
+                    success:function (layero,index) {
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        iframeWin.child(JSON.stringify(data))
+                    }
+                })
+            } else if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'edit'){
+                    $.ajax({
+                        url:"/ccCost/addPay",
+                        data:{costId:data.costId},
+//                        contentType:"application/json",
+                        type:"post",
+                        dataType:"json",
+                        success:function (msg) {
+                            if(msg.tf=="true"){
+                              layer.msg("缴费成功")
+                                table.reload("cost",{
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                })
+                            }else {
+                                layer.msg(msg.tf)
+                            }
+                        }
+                    })
+            }
+        });
+
+        //按姓名查询
+        form.on("submit(sreachname)", function (data) {
+            json = JSON.stringify(data.field)
+            //执行重载
+            t.reload({
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    userName: (JSON.parse(json)).userName
+                }
+            }, 'data');
+            console.log(json)
+            return false;
+        })
+
+        //按手机号查询
+        form.on("submit(sreachphone)", function (data) {
+            json = JSON.stringify(data.field)
+            //执行重载
+            t.reload({
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    userPhonenumber: (JSON.parse(json)).userPhonenumber
+                }
+            }, 'data');
+            console.log(json)
+            return false;
+        })
+    });
+
+
+</script>
+</body>
+</html>

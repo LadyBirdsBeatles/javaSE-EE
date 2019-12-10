@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="lib/layui/css/layui.css" rel="stylesheet">
+</head>
+<style>
+    body{
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+</style>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-form-item" hidden="hidden">
+        <label class="layui-form-label">账单号</label>
+        <div class="layui-input-block">
+            <input type="text" name="costId" autocomplete="off" disabled="true" class="layui-input" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">水费</label>
+        <div class="layui-input-block">
+            <input type="text" name="costWater" autocomplete="off" placeholder="请输入水费" class="layui-input" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">燃气费</label>
+        <div class="layui-input-block">
+            <input type="text" name="costGas" autocomplete="off" placeholder="请输入燃气费" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电费</label>
+        <div class="layui-input-block">
+            <input type="text" name="costPower" autocomplete="off" placeholder="请输入电费" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">空调费</label>
+        <div class="layui-input-block">
+            <input type="text" name="costAir" autocomplete="off" placeholder="请输入空调费" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">其他费用</label>
+        <div class="layui-input-block">
+            <input type="text" name="costOther" autocomplete="off" placeholder="请输入其他费用" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">费用日期</label>
+        <div class="layui-input-block">
+            <input type="text" name="costDate" autocomplete="off" placeholder="yyyy-MM (2019-01)" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">缴费人</label>
+        <div class="layui-input-block">
+            <input type="text" name="user.userName" autocomplete="off" placeholder="请输入缴费人" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">缴费人手机</label>
+        <div class="layui-input-block">
+            <input type="text" name="user.userPhonenumber" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">确定</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+<script src="lib/layui/layui.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render()
+        form.on('submit(demo1)', function (data) {
+            var date = /^\d{4}[-]\d{1}[10-12]$|^\d{4}[-][0][1-9]$/
+            if (!date.test(data.field.costDate)) {
+                layer.msg("日期格式错误")
+                return false;
+            }
+            var tf=true
+            $.each(data.field,function (i,o) {
+                if(o.trim()==""){
+                    tf=false;
+                }
+            })
+            if(!tf){
+                layer.msg("请填写完整")
+                return false;
+            }
+            $.ajax({
+                url: "/ccCost/update",
+                data: data.field,
+//                contentType: "application/json",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.tf == "true") {
+                        layer.msg("修改成功")
+                    }else {
+                        layer.msg(msg.tf)
+                    }
+                }
+            })
+            return false;
+        });
+    })
+
+    function child(obj) {
+        var data=JSON.parse(obj)
+        $("input[name='costId']").val(data.costId)
+        $("input[name='costWater']").val(data.costWater)
+        $("input[name='costGas']").val(data.costGas)
+        $("input[name='costPower']").val(data.costPower)
+        $("input[name='costAir']").val(data.costAir)
+        $("input[name='costOther']").val(data.costOther)
+        $("input[name='costDate']").val(data.costDate)
+        $("input[name='user.userName']").val(data.userName)
+        $("input[name='user.userPhonenumber']").val(data.userPhonenumber)
+    }
+
+</script>
+
+
+</html>

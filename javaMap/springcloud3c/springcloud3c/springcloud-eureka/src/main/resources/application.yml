@@ -1,0 +1,11 @@
+server:
+  port: 8080
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #defaultZone: http://www:beetles:cn:8088/eureka/,http://www:beetles:com:8089/eureka/

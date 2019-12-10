@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="../../lib/layui/css/layui.css" media="all">
+	<style type="text/css">
+		body,
+		html {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			font-family: "微软雅黑";
+		}
+
+		#allmap {
+			width: 100%;
+			height: 75%;
+			overflow: hidden;
+		}
+
+		#result{
+			width: 800px;
+			margin: 20px auto;
+		}
+
+		dl,
+		dt,
+		dd,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		p {
+			font-size: 12px;
+		}
+
+		dt {
+			font-size: 14px;
+			font-family: "微软雅黑";
+			font-weight: bold;
+			border-bottom: 1px dotted #000;
+			padding: 5px 0 5px 5px;
+			margin: 5px 0;
+		}
+
+		dd {
+			padding: 5px 0 0 5px;
+		}
+
+		li {
+			line-height: 28px;
+		}
+
+		label#MapName,label#newName,label#MapColor{
+			margin-left: 18px;
+			font-size: 18px;
+		}
+
+		label {
+			font-size: 18px;
+		}
+
+		input.submit,input.searchScope,input.edit,input.flush{
+			width: 80px;
+			height: 30px;
+			margin-right: 20px;
+			background: rgb(13, 155, 242);
+			border: none;
+			color: white;
+			cursor: pointer;
+			border-radius:6% ;
+		}
+
+	</style>
+	<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=QdRE4w0weyvIKM0GzdvQUZRut3Qahgbv"></script>-->
+	<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=VfNxG9fgwm9zWWgsNqbyMoIBTewprG0K"></script>-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=F0i6SrLmHquLVNLCqpExxPrj8mWVdFwx"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=F0i6SrLmHquLVNLCqpExxPrj8mWVdFwx"></script>
+	<!--加载鼠标绘制工具-->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+	<!--加载检索信息窗口-->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+	<script src="../../lib/layui/layui.all.js"></script>
+
+	<title>修改配送范围</title>
+</head>
+
+<body>
+<div id="result">
+	<label id="MapName" style="margin-left: -15px">当前名称:</label>
+	<input type="text" readonly="readonly" class="MapName" name="MapName" style="width: 330px;height: 35px;"><br><br>
+	<label id="newName" style="margin-left: -15px">新的名称:</label>
+	<input type="text" class="newName" name="newName" style="width: 330px;height: 35px;"><br><br>
+	<div class="layui-input-block" style="margin-left: -15px">
+		<div style="margin-left: -30px;">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label">颜色值 :</label>
+					<div class="layui-input-inline" style="width: 250px;">
+						<input class="layui-input" id="test-form-input" name="MapColor" type="text" placeholder="请选择颜色" value="#1c97f5"
+							   style="width: 300px">
+					</div>
+					<div class="layui-inline" style="left: -11px;">
+						<div id="test-form" style="width: 150px;height: 50px;margin-left: 50px"></div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<input type="button" value="开始编辑" class="edit" onclick="loadMyOverlay()"/>
+	<input type="button" value="结束编辑" class="flush" onclick="flush()">
+	<input type="button" class="submit" id="save" value="保存范围" />
+	<i id="info"></i>
+</div>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+	<div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;">
+	</div>
+</div>
+
+<div id="resultShape"></div>
+<!--<input type="button" value="加载" onclick="loadMyOverlay()"/>-->
+<script src="../../lib/jquery-3.3.1.min.js"></script>
+<script src="/lib/iColorPicker.js"></script>
+
+<!--颜色选择-->
+<script>
+	layui.use('layer', function () {
+		var layer = layui.layer //弹层
+		layui.use('colorpicker', function () {
+			var $ = layui.$
+					, colorpicker = layui.colorpicker;
+			//开启全功能
+			colorpicker.render({
+				elem: '#test-form'
+				, color: '#1c97f5'
+				, predefine: true
+				, alpha: true
+				, done: function (color) {
+					$('#test-form-input').val(color);
+					layer.tips('给指定隐藏域设置了颜色值：' + color, this.elem);
+					color || this.change(color); //清空时执行 change
+				}
+			});
+		})
+	});
+</script>
+<script>
+
+    //生成数组用于保存范围的名字
+    var ScopeName=[];
+
+    //生成范围名字按钮
+    $(function() {
+        jQuery.ajax({
+            url: "/num",
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                jQuery.each(data,function (k, v) {
+                    ScopeName[k]=v.mapName
+                })
+                getMap();
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        })
+    })
+
+    //监听输入框的状态,并进行改变背景颜色
+    jQuery("input#MapColor").bind("input propertychange",function () {
+        jQuery("input#MapColor").css("background",jQuery("input#MapColor").val())
+    })
+
+    var pointXY=[];//声明数组用户存储经纬度
+    var color=null;//用于颜色中转
+
+    //点击区域名字获取范围
+    function  getMap() {
+        jQuery("div.range").on("click",function () {
+            var mName=jQuery(this).text()
+            jQuery.ajax({
+                url: "/map",
+                data:{"MapName":mName},
+                type: "post",
+                dataType: "json",
+                success: function(data) {
+                    jQuery.each(data,function (k, v) {
+                        if (mName===v.mapName){
+                            var a = v.coordinate.split(',');
+                            pointXY[k] = new BMap.Point(parseFloat(a[0]), parseFloat(a[1]));
+                            color=v.mapColor;
+                        }
+                    })
+                    createScope(pointXY,color)
+                },
+                error: function(e) {
+                    console.log(e)
+                }
+            })
+        })
+
+        //循环把后端得到的范围名字再传给后端进行寻找对应的经纬度
+        var Xy=[];//声明数组用于保存经纬度
+        var mc=null;//用于颜色的中转
+        for (var i = 0; i <ScopeName.length ; i++) {
+            jQuery.ajax({
+                url:"/show",
+                traditional: true,
+                data:{"mName":ScopeName[i]},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    jQuery.each(data,function (k,v) {
+                        var a = v.coordinate.split(',');
+                        Xy[k] = new BMap.Point(parseFloat(a[0]), parseFloat(a[1]));
+                        mc=v.mapColor;
+                    })
+                    createScope(Xy,mc)
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        }
+    }
+    //生成范围
+    function createScope(point,color) {
+        var polygon = new BMap.Polygon(point, {strokeWeight: 2, strokeOpacity: 0.5, fillColor:color});  //创建多边形
+        map.addOverlay(polygon);   //增加多边形
+        return polygon;
+    }
+
+    //单击按钮修改配送范围
+    jQuery(function () {
+        jQuery("input#save").on("click",function () {
+            jQuery.ajax({
+                url:"/modifyMap",
+                traditional: true,
+                data:{"mapName":jQuery("input.MapName").val(),
+                    "newName":jQuery("input.newName").val(),
+                    "mapColor":jQuery("input#test-form-input").val(),
+                    "mapCoor":save()
+                },
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                    if (data.flag=="SUCCESS"){
+                        jQuery("i#info").css("color","green").html("配送范围修改成功!")
+                    }else{
+                        jQuery("i#info").css("color","red").html("配送范围修改失败!")
+                    }
+                    // flush();
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        })
+    })
+
+</script>
+<script>
+    var point = [];//存放坐标
+    var color=null;//中转颜色值
+    //点击按钮查询配送范围是否存在
+    jQuery(function() {
+        // jQuery("input.searchScope").on("click", function() {
+        jQuery.ajax({
+            url: "/map",
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                jQuery.each(data,function (k,v) {
+                    var a = v.coordinate.split(',');
+                    point[k] = new BMap.Point(parseFloat(a[0]), parseFloat(a[1]));
+                    color=v.mapColor;
+                    jQuery("input.MapName").val(v.mapName)
+                    jQuery("input.newName").val(v.mapName)
+                    jQuery("input#MapColor").val(v.mapColor)
+                    jQuery("input#MapColor").css("background",v.mapColor)
+                })
+                createScope(point,color);
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        })
+        // })
+    })
+
+    //生成多边形覆盖物
+    function createScope(point,color) {
+        var name=null;
+        for (var i = 0; i <point.length; i++) {
+            name=polygon+i;
+            name = new BMap.Polygon(point, {strokeWeight: 2, strokeOpacity: 0.2, fillColor:color});  //创建多边形
+            map.addOverlay(name);   //增加多边形
+        }
+        return name;
+    }
+
+</script>
+<script>
+    var overlays = [];
+    //回调获得覆盖物信息
+    var overlaycomplete = function(e){
+        //将多边形保存到数组
+        overlays.push(e.overlay);
+        //开启编辑模式
+        e.overlay.enableEditing();
+    };
+    //保存地图
+    function save(){
+
+        var map = this.map;
+        var overlays = this.overlays;//获取存放的多边形数组
+
+        var path = overlays[0].getPath();//获取第一个多边形
+        var changePoint=[];
+        for(var i=0;i<path.length;i++){
+            // alert("坐标为：lng:"+path[i].lng+" lat:"+path[i].lat);
+            changePoint[i]=(path[i].lng+","+path[i].lat);
+        }
+        return changePoint;
+    }
+
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    var myPolygon='';
+    // var myOverlay = [
+    //     new BMap.Point(116.256515,39.995242),
+    //     new BMap.Point(116.502579,39.951893),
+    //     new BMap.Point(116.256515,39.866882)
+    // ];
+
+
+    //加载多边形
+    function loadMyOverlay (){
+        var map = this.map;
+        //清空现在有的多边形
+        // clearAll();
+        map.centerAndZoom(this.poi, 18);
+        var myPolygon = new BMap.Polygon(point, this.styleOptions);
+        this.myPolygon = myPolygon;
+
+        try{myPolygon.enableEditing();}catch(e){};
+        //myPolygon.addEventListener("lineupdate",function(e){
+        //});
+        map.addOverlay(myPolygon);
+        //将加载的多边形保存到数组里面
+        overlays.push(myPolygon);
+    }
+	//刷新
+    function flush() {
+        location.reload();
+    }
+
+</script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map('map');
+    var poi = new BMap.Point(104.050528,30.556761);
+    map.centerAndZoom(poi, 18);
+    map.enableScrollWheelZoom();
+    var marker = new BMap.Marker(poi); // 创建标注
+    map.addOverlay(marker); // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    //生成多边形
+    var polygon = new BMap.Polygon(point, {strokeWeight: 2, strokeOpacity: 0.5, fillColor:color,enableEditing:true});  //创建多边形
+    map.addOverlay(polygon);   //增加多边形
+</script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/web/layui/limit/my.html" value="file://$PROJECT_DIR$/web/layui/limit" />
+        <entry key="file://$PROJECT_DIR$/web/layui/limit/writ.html" value="file://$PROJECT_DIR$/web/layui/limit" />
+      </map>
+    </option>
+  </component>
+</project>

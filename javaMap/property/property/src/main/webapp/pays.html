@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html class="x-admin-sm" lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>缴费</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/xadmin.css">
+    <link rel="stylesheet" href="lib/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--></head>
+<style type="text/css">
+    input {
+        border: none;
+    }
+</style>
+<body>
+<form action="/pays/pay" method="post">
+    <table class="layui-table">
+        <tr>
+            <td>账单号:</td>
+            <td colspan="2"><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_id"
+                                   name="costid"></td>
+        </tr>
+        <tr>
+            <td>水费:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_eater" name="eater">
+            </td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td>燃气费:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_gas" name="gas"></td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td>电费:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_power" name="power">
+            </td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td>空调费:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_air" name="air"></td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td>其他费用:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_cost_other" name="other">
+            </td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td>合计缴费:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="pay_sun_money" name="money">
+            </td>
+            <td>元</td>
+        </tr>
+        <tr>
+            <td colspan="3"><input class="layui-btn" style="width: 100%" type="submit" value="确定"></td>
+        </tr>
+    </table>
+</form>
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script>
+    var parse;
+
+    function pays(obj) {
+        parse = JSON.parse(obj);
+        $("#pay_cost_id").val(parse.costId);
+        $("#pay_cost_eater").val(parse.costWtate);
+        $("#pay_cost_gas").val(parse.costGas);
+        $("#pay_cost_power").val(parse.costPower);
+        $("#pay_cost_air").val(parse.costAir);
+        $("#pay_cost_other").val(parse.costOther);
+        $("#pay_sun_money").val(parse.sumCost);
+    }
+</script>
+</body>
+</html>

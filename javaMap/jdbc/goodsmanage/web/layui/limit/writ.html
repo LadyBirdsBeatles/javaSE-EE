@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加节点</title>
+    <style>
+        li{
+            border-radius: 50px;
+            list-style-type: none;
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/writ",
+                /*  data: {
+                      "username": $("input[name=username]").val(),
+                      "pwd": $("input[name=pwd]").val()
+                  },*/
+                type: "post",
+                dataType:'json',
+                success: function (backData) {
+                    for (var i=0;i<backData.length;i++) {
+                        var v=  backData[i].department
+                        var v1= backData[i].eage
+                        var v2= backData[i].ebirthday
+                        var v3= backData[i].ecomment
+                        var v4= backData[i].egender
+                        var v5= backData[i].ehiredate
+                        var v6=  backData[i].eid
+                        var v7= backData[i].ejob
+                        var v8= backData[i].ename
+                        var v9= backData[i].ephonenumber
+                        var t=document.createElement("tr");
+                        t.innerHTML='<td>'+v+'</td><td>'+v1+'</td><td>'+v2+'</td><td>'+v3+'</td><td>'+v4+'</td><td>'+v5+'</td><td>'+v6+'</td><td>'+v7+'</td><td>'+v8+'</td><td>'+v9+'</td>';
+                        $("tbody").append(t);
+                    }
+                   /* $.each( backData, function(i){
+                        var v=  backData[i].department
+                        var v1= backData[i].eage
+                        var v2= backData[i].ebirthday
+                        var v3= backData[i].ecomment
+                        var v4= backData[i].egender
+                        var v5= backData[i].ehiredate
+                        var v6=  backData[i].eid
+                        var v7= backData[i].ejob
+                        var v8= backData[i].ename
+                        var v9= backData[i].ephonenumber
+                        var t=document.createElement("tr");
+                  t.innerHTML='<td>'+v+'</td><td>'+v1+'</td><td>'+v2+'</td><td>'+v3+'</td><td>'+v4+'</td><td>'+v5+'</td><td>'+v6+'</td><td>'+v7+'</td><td>'+v8+'</td><td>'+v9+'</td>';
+                  $("tbody").append(t);
+                    });*/
+                    document.close();
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<!--<fieldset style="width: 400px;height: 200px;margin: 50px auto;line-height: 40px">
+    <legend>添加操作</legend>
+    <button id="buttob">添加数据</button>
+</fieldset>-->
+<!--<hr style="height: 2px;background-color: #5bc0de ">-->
+<table border="1px">
+<tbody style="border: 1px rebeccapurple solid;margin: 10px auto">
+    <tr>
+        <td>用户名</td>
+        <td>性别</td>
+        <td>年龄</td>
+        <td>生日</td>
+        <td>部门</td>
+        <td>职务</td>
+        <td>电话号码</td>
+        <td>入职时间</td>
+        <td>备注</td>
+        <td>备注</td>
+        </tr>
+    <tbody id="tbody"></tbody>
+</table>
+<ul><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li></ul>
+</body>
+</html>

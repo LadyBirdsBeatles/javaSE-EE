@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1554901098009" media="all">
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../lib/layui/layui.all.js" charset="utf-8"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <![endif]-->
+    <style>
+        #container {
+            width: 100%;
+            height: 450px;
+        }
+
+        label {
+            width: 55px;
+            height: 26px;
+            line-height: 26px;
+            margin-bottom: 0;
+        }
+
+        button.btn {
+            width: 80px;
+        }
+    </style>
+    <script src="https://webapi.amap.com/maps?v=1.4.14&key=4fc888714b81ff1b83524573927518ac"></script>
+</head>
+<body class="layui-anim layui-anim-up">
+<div class="x-body">
+    <div class="layui-row">
+        <span>配送范围</span>
+        <br><br><br>
+        <a class="layui-btn butt1">添加</a>
+    </div>
+    <br>
+    <!--  <table class="layui-hide" id="test"></table>-->
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <div class="layui-tab layui-tab-brief" lay-filter="demo"></div>
+</div>
+<blockquote class="layui-elem-quote layui-quote-nm layui-hide" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>
+<script src="//res.layui.com/layui/dist/layui.js?t=1554901098009"></script>
+<script>
+    layui.config({
+        version: '1554901098009' //为了更新 js 缓存，可忽略
+    });
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'element'], function () {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , element = layui.element //元素操作
+        //向世界问个好
+        layer.msg('加载中', {
+            icon: 16
+            , shade: 0.01
+        });
+        //监听Tab切换
+        element.on('tab(demo)', function (data) {
+            layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                tips: 1
+            });
+        });
+        //执行一个 table 实例
+        table.render({
+            elem: '#test'
+            , height: 520
+            , url: '/page' //数据接口
+            , title: '用户表'
+            , page: true //开启分页
+            , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            , totalRow: true //开启合计行
+            , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'mapName', title: '名称', sort: true, align: 'center'}
+                , {field: 'colorValue', title: '颜色', align: 'center'}
+                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'}
+            ]]
+        });
+
+        $(".butt1").on("click", function () {
+            layer.open({
+                type: 2,
+                area: ['1000px', '600px'],
+                title: '添加配送范围',
+                offset: 't',
+                shade: 0.6, //遮罩透明度
+                maxmin: true, //允许全屏最小化
+                anim: 1,//0-6的动画形式，-1不开启
+                content: 'add-scope.html'//这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+        })
+        //监听头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id)
+                , data = checkStatus.data; //获取选中的数据
+            switch (obj.event) {
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'delete':
+                    if (data.length === 0) {
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.msg('删除');
+                    }
+                    break;
+            }
+            ;
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+
+                , layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'detail') {
+                layer.open({
+                    type: 2,
+                    area: ['1000px', '600px'],
+                    title: '修改',
+                    offset: 't',
+                    shade: 0.6, //遮罩透明度
+                    maxmin: true, //允许全屏最小化
+                    anim: 1,//0-6的动画形式，-1不开启
+                    content: 'add-scope.html' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            } else if (layEvent === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $(function () {
+                        var s = JSON.stringify(data);
+                        $.ajax({
+                            url: "/delscope",
+                           /* traditional: true,*/
+                            data: {
+                                "rowdata": s
+                            },
+                            type: "post",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.flag === "SUCCESS") {
+                                    layer.msg('配送范围删除成功!', {
+                                        icon: 16
+                                        , shade: 0.001
+                                    });
+                                } else {
+                                    layer.msg('配送范围删除失败!', {
+                                        icon: 16
+                                        , shade: 0.01
+                                    });
+
+                                }
+                            }
+                        })
+                    })
+                });
+
+            }
+        });
+        //分页
+        laypage.render({
+            elem: 'pageDemo' //分页容器的id
+            , count: 100 //总页数
+            , skin: '#1E9FFF' //自定义选中色值
+            //,skip: true //开启跳页
+            , jump: function (obj, first) {
+                if (!first) {
+                    layer.msg('第' + obj.curr + '页', {offset: 'b'});
+                }
+            }
+        });
+
+    });
+
+    layui.use('colorpicker', function () {
+        var $ = layui.$
+            , colorpicker = layui.colorpicker;
+        //开启全功能
+        colorpicker.render({
+            elem: '#test-form'
+            , color: '#1c97f5'
+            , predefine: true
+            , alpha: true
+            , done: function (color) {
+                $('#test-form-input').val(color);
+                layer.tips('给指定隐藏域设置了颜色值：' + color, this.elem);
+                color || this.change(color); //清空时执行 change
+            }
+        });
+    });
+</script>
+</body>
+</html>

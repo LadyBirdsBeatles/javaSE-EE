@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>周边（圆形区域）检索</title>
+    <style type="text/css">
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        body, button, input, select, textarea {
+            font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+        }
+        p{
+            width:603px;
+            padding-top:3px;
+            margin-top:10px;
+            overflow:hidden;
+        }
+        #container {
+            min-width:603px;
+            min-height:767px;
+        }
+        div.top{
+            width: 1300px;
+            height: 50px;
+            position: relative;
+        }
+        .layui-text{
+            width: 350px;
+            height: 40px;
+            margin-left: 100px;
+            font-size: 15px;
+        }
+        .sou{
+            width: 100px;
+            height: 43px;
+            background-color: #F4F4F4;
+            font-size: 15px;
+        }
+        table{
+            width: 200px;
+            height: 40px;
+            position: absolute;
+            left:700px;
+            top: -0px;
+            font-size: 15px;
+            background-color: #F4F4F4;
+            border: 1px #F4F4F4;
+        }
+        .qu{
+            width: 70px;
+            height: 40px;
+            position: absolute;
+            left: 910px;
+            top: -0px;
+            border: 1px;
+            font-size: 15px;
+        }
+        .ps{
+         margin-left: 50px;
+         margin-bottom: 10px;
+         font-size: 15px;
+        }
+        td{
+            border: 1px #F4F4F4 solid;
+            text-align: center;
+        }
+    </style>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=BEYBZ-VCTWG-TTJQ7-ILBNM-S56HE-XYFVZ"></script>
+    <script>
+        var searchService,map,markers = [];
+        var init = function() {
+            var center = new qq.maps.LatLng(30.556745,104.051046);
+            map = new qq.maps.Map(document.getElementById('container'),{
+                center: center,
+                zoom: 13
+            });
+            //设置圆形
+            new qq.maps.Circle({
+                center:new qq.maps.LatLng(30.556745,104.051046),
+                radius: 2000,
+                map: map
+            });
+            var latlngBounds = new qq.maps.LatLngBounds();
+            //调用Poi检索类
+            searchService = new qq.maps.SearchService({
+                complete : function(results){
+                    var pois = results.detail.pois;
+                    for(var i = 0,l = pois.length;i < l; i++){
+                        var poi = pois[i];
+                        latlngBounds.extend(poi.latLng);
+                        var marker = new qq.maps.Marker({
+                            map:map,
+                            position: poi.latLng
+                        });
+
+                        marker.setTitle(i+1);
+
+                        markers.push(marker);
+                    }
+                    map.fitBounds(latlngBounds);
+                }
+            });
+        };
+
+        //调用poi类信接口
+        function searchKeyword() {
+            var keyword = document.getElementById("keyword").value;
+            region = new qq.maps.LatLng(30.556745,104.051046);
+            searchService.setPageCapacity(5);
+            searchService.searchNearBy(keyword, region, 200);//根据中心点坐标、半径和关键字进行周边检索。
+        }
+    </script>
+</head>
+<body onload="init()">
+<p class="ps">配送范围查询</p>
+<div class="top">
+    <input id="keyword" type="textbox" value="四川省成都市武侯区天府二街999号" class="layui-text">
+    <input type="button" value="搜索" onclick="searchKeyword()" class="sou">
+    <div>
+        <table border="1px">
+            <tr>
+                <td>红</td>
+                <td>黄</td>
+                <td>蓝</td>
+                <td>绿</td>
+                <td>灰</td>
+            </tr>
+        </table>
+        <button class="qu">确认地址</button>
+    </div>
+</div>
+<div id="container"></div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>权限管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!--    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!--    <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1554901098009" media="all">-->
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <script type="text/javascript" src="../../js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        li
+        {
+            float: left;
+            margin-left: 10px;
+        }
+        button.layui-btn
+        {
+
+            position: absolute;
+            left: 680px;
+            top: 63px;
+        }
+        span
+        {
+            display:inline-block ;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        option
+        {
+            display: inline-block;
+            color: #795DA3;
+            margin-top: 5px;
+
+        }
+        .butt1
+        {
+            position: absolute;
+            left: 750px;
+            top: 63px;
+        }
+    </style>
+</head>
+
+<body class="layui-anim layui-anim-up">
+<div class="x-body ">
+    <div class="layui-row demoTable">
+        <span>权限管理</span>
+        <div class="layui-col-md12 x-so layui-inline">
+<!--        <form class="layui-col-md12 x-so">-->
+            <ul>
+                <li>
+                    <input  style="width: 220px;height: 38px;" type="text" name="field" id="field"  placeholder="请输入工号或姓名" autocomplete="off" class="layui-input">
+                </li>
+            </ul>
+<!--        </form>-->
+        </div>
+        <button id="sreach" class="layui-btn" data-type="reload" lay-filter="sreach" style="position: absolute;left: 270px">查询</button>
+        <a class="layui-btn butt1">添加用户</a>
+    </div>
+    <table class="layui-hide" id="demo" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">设置</a>
+    </script>
+    <!--设置按钮弹出的内容-->
+    <!--这里是弹出层的表单信息-->
+    <!--表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出-->
+    <div class="layui-row" id="roleSet" style="display: none">
+            <div class="layui-col-md10">
+            <form class="layui-form layui-from-pane" action="#" style="margin-top:20px" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限管理</label>
+                    <div class="layui-input-block">
+                        <select id="select01" name="type" lay-filter="eqptType">
+                            <option value="0">管理员</option>
+                            <option value="1">客服</option>
+                            <option value="2">配送员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新密码:</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="newpassword" autocomplete="off"class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认新密码:</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="c-password" autocomplete="off" class="layui-input">
+                        <p style="color: #999;">如果不修改密码，请保持密码框为空。</p>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="powerform" style="position: relative;left: 20px;top: 10px">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary" style="position: relative;left: 20px;top:10px">重置</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+<!--    <div class="layui-tab layui-tab-brief" lay-filter="demo">-->
+<!--    </div>  -->
+</div>
+<blockquote class="layui-elem-quote layui-quote-nm layui-hide" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>
+<!--<script src="//res.layui.com/layui/dist/layui.js?t=1554901098009"></script>-->
+
+<!--引入分页操作等的js-->
+<script src="../../js/sp-power.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.AppealMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Appeal">
+    <id column="appeal_id" jdbcType="INTEGER" property="appealId" />
+    <result column="appeal_title" jdbcType="VARCHAR" property="appealTitle" />
+    <result column="appeal_date" jdbcType="TIMESTAMP" property="appealDate" />
+    <result column="appeal_content" jdbcType="VARCHAR" property="appealContent" />
+    <result column="appeal_state" jdbcType="INTEGER" property="appealState" />
+    <result column="appeal_eva" jdbcType="VARCHAR" property="appealEva" />
+    <association property="admin" column="admin_id" select="com.bj186.mapper.AdminMapper.ccSelectByIdKF" fetchType="lazy"/>
+    <association property="user" column="appeal_uid" select="com.bj186.mapper.UserMapper.ccSelectById" fetchType="lazy"/>
+    <collection property="reply" column="appeal_id" select="com.bj186.mapper.ReplyMapper.ccSelectByAppealId" fetchType="lazy"/>
+  </resultMap>
+  <!--<cache/>-->
+  <select id="ccSelectById" resultMap="BaseResultMap" parameterType="int">
+    select * from appeal where appeal_id=#{id}
+  </select>
+
+
+  <select id="ccSelectAll" resultMap="BaseResultMap" statementType="CALLABLE">
+    call fy(
+    #{tablename,mode=IN},
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{rows,mode=OUT,jdbcType=INTEGER}
+    )
+  </select>
+
+  <update id="ccUpdateAdmin" >
+    update appeal set admin_id=#{adminId} where appeal_id=#{id}
+  </update>
+
+  <update id="ccUpdateState" >
+    update appeal set appeal_state=#{appealState} where appeal_id=#{appealId}
+  </update>
+  <!--未处理-->
+  <select id="nocomplain" resultMap="BaseResultMap">
+   select *from appeal where appeal_uid=#{user_id} and  appeal_eva='未评价' and appeal_state between 0 and 1 order by  appeal_id DESC
+  </select>
+  <!--未处理投诉结果-->
+  <select id="nocomplainresult" resultMap="BaseResultMap">
+   select *from appeal where appeal_id=#{user_id} and  appeal_eva='未评价' and appeal_state between 0 and 1 order by  appeal_id DESC
+  </select>
+  <!--以处理-->
+  <!--select *from appeal where appeal_uid=#{user_id}  and appeal_state between 2 and 3 order by  appeal_id DESC-->
+  <select id="pastcomplain" resultMap="BaseResultMap" statementType="CALLABLE">
+call pastappeal(
+ #{uid,mode=IN},
+   #{page,mode=IN},
+   #{limits,mode=IN},
+   #{rows,mode=OUT,jdbcType=INTEGER}
+   )
+  </select>
+  <!--以处理投诉结果 -->
+  <select id="pastcomplainresult" resultMap="BaseResultMap">
+  select *from appeal where appeal_id=#{user_id}  and appeal_state between 2 and 3 order by  appeal_id DESC
+  </select>
+  <insert id="insert" parameterType="com.bj186.pojo.Appeal">
+    insert into appeal (appeal_id, appeal_uid, appeal_title,
+      appeal_date, appeal_content, appeal_state,
+      admin_id, appeal_eva)
+    values (#{appealId,jdbcType=INTEGER}, #{user.userId,jdbcType=INTEGER}, #{appealTitle,jdbcType=VARCHAR},
+      #{appealDate,jdbcType=TIMESTAMP}, #{appealContent,jdbcType=VARCHAR}, #{appealState,jdbcType=INTEGER},
+      #{admin.adminId,jdbcType=INTEGER}, #{appealEva,jdbcType=VARCHAR})
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="com.bj186.pojo.Appeal">
+    insert into appeal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        appeal_id,
+      </if>
+      <if test="appealUid != null">
+        appeal_uid,
+      </if>
+      <if test="appealTitle != null">
+        appeal_title,
+      </if>
+      <if test="appealDate != null">
+        appeal_date,
+      </if>
+      <if test="appealContent != null">
+        appeal_content,
+      </if>
+      <if test="appealState != null">
+        appeal_state,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="appealEva != null">
+        appeal_eva,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        #{appealId,jdbcType=INTEGER},
+      </if>
+      <if test="appealUid != null">
+        #{user.userId,jdbcType=INTEGER},
+      </if>
+      <if test="appealTitle != null">
+        #{appealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="appealDate != null">
+        #{appealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appealContent != null">
+        #{appealContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appealState != null">
+        #{appealState,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        #{admin.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="appealEva != null">
+        #{appealEva,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Appeal">
+        update appeal
+        <set>
+        <if test="user != null">
+            appeal_uid = #{user.userId,jdbcType=INTEGER},
+        </if>
+        <if test="appealTitle != null">
+            appeal_title = #{appealTitle,jdbcType=VARCHAR},
+        </if>
+        <if test="appealDate != null">
+            appeal_date = #{appealDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="appealContent != null">
+            appeal_content = #{appealContent,jdbcType=VARCHAR},
+        </if>
+        <if test="appealState != null">
+            appeal_state = #{appealState,jdbcType=INTEGER},
+        </if>
+        <if test="admin != null">
+            admin_id = #{admin.adminId,jdbcType=INTEGER},
+        </if>
+        <if test="appealEva != null">
+            appeal_eva = #{appealEva,jdbcType=VARCHAR},
+        </if>
+        </set>
+        where appeal_id = #{appealId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

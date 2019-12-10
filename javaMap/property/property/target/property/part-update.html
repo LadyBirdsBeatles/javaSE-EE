@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>小区信息</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="css/font.css">
+        <link rel="stylesheet" href="css/xadmin.css">
+        <script src="lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/xadmin.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" lay-filter="example">
+
+                  <div class="layui-fo
+                  rm-item">
+                      <label  class="layui-form-label">
+                          <span class="x-red">*</span>标题
+                      </label>
+                      <div class="layui-input-inline">
+                          <input type="text" id="msgTitle" name="msgTitle" class="layui-input" value="">
+                  </div>
+                  </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>活动开始时间
+                        </label>
+                        <div class="layui-inline">
+                            <input type="text" id="startTime" name="msgPartstarttime" equired="" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>活动截止时间
+                        </label>
+                        <div class="layui-inline">
+                            <input type="text" id="endTime" name="msgPartendtime" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>内容
+                        </label>
+                        <div class="layui-input-block">
+                            <textarea id="txt" class="layui-textarea"  name="msgOther1" ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label">
+                        </label>
+                        <button  class="layui-btn" lay-filter="add" lay-submit="">
+                            修改
+                        </button>
+                    </div>
+              </form>
+            </div>
+        </div>
+
+        <script>
+            var parent_json;
+            $(function () {
+                //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
+                parent_json = eval('(' + parent.update + ')');
+                console.log(parent_json);
+                // $("#msgTitle").text(parent_json.msgTitle);
+                $("#txt").text(parent_json.msgOther1);
+                var start = parent_json.msgPartstarttime;
+                var end = parent_json.msgPartendtime;
+                var startT = start.substring(0,start.length-5);
+                var endT = end.substring(0,start.length-5);
+
+                layui.use(['form', 'layer','laydate'],
+                    function() {
+                        $ = layui.jquery;
+                        var form = layui.form,
+                            layer = layui.layer;
+
+                        var laydate = layui.laydate;
+
+                        //时间选择器
+                        laydate.render({
+                            elem: '#startTime' //指定元素
+                            ,type:'datetime'
+                            , trigger: 'click'
+                        });
+                        laydate.render({
+                            elem: '#endTime'
+                            ,type:'datetime'
+                            , trigger: 'click'
+                        });
+                        //表单初始赋值
+                        form.val('example', {
+                             "msgTitle":parent_json.msgTitle
+                            ,"msgPartstarttime":startT
+                            ,"msgPartendtime":endT
+
+                        })
+
+                        //监听提交
+                        form.on('submit(add)',
+                            function(data) {
+                                var field = data.field;
+                                field.msgId=parent_json.msgId;
+                                console.log(data);
+                                $.ajax({
+                                    url:'/property/msg/update',
+                                    type:'post',
+                                    data:JSON.stringify(field),
+                                    dataType:'json',
+                                    contentType:"application/json",
+                                    success:function (){
+                                        console.log("成功")
+                                    },
+                                    error:function (e){
+                                        console.log(e)
+                                    }
+                                });
+                                //发异步，把数据提交给php
+                                layer.alert("增加成功", {
+                                        icon: 6
+                                    },
+                                    function() {
+                                        //关闭当前frame
+                                        xadmin.close();
+
+                                        // 可以对父窗口进行刷新
+                                        xadmin.father_reload();
+                                    });
+                                return false;
+                            });
+
+                    });
+            })
+        </script>
+    </body>
+</html>

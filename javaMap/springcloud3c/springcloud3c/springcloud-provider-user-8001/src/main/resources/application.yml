@@ -1,0 +1,31 @@
+#spring 服务器的访问端口
+server:
+  port: 8001
+  #mybatis配置
+mybatis:
+  type-aliases-package: com.cloud.beetles.pojo
+  config-location: classpath:mybatis/mybatis-config.xml
+  #mapper-locations: classpath:mybatis/mapper/*.xml
+  #spring配置
+spring:
+  application:
+    name: springcloud-provider-user
+  #定义数据库连接池
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud3c?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: admin
+#eureka配置 服务注册到哪里
+eureka:
+  client:
+    service-url:
+      defaultZone: http://cloud.beetles.net:8087/eureka/,http://cloud.beetles.cn:8088/eureka/,http://cloud.beetles.com:8089/eureka/
+  instance:
+    instance-id: springcloud-beetles-8001 #修改默仍描述
+    prefer-ip-address: true #显示IP地址
+#info配置
+info:
+  app.name: xiaochen
+  company.name: com.beetles.cloud

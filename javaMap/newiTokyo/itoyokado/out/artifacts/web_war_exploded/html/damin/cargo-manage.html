@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>货品分类管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1554901098009" media="all">
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <script type="text/javascript" src="../../js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        li {
+            float: left;
+            margin-left: 10px;
+        }
+
+        button.layui-btn {
+
+            position: absolute;
+            left: 680px;
+            top: 63px;
+        }
+
+        span {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        option {
+            display: inline-block;
+            color: #795DA3;
+            margin-top: 5px;
+
+        }
+
+        .butt1 {
+            position: absolute;
+            left: 750px;
+            top: 63px;
+        }
+        .butt2 {
+            position: absolute;
+            left: 750px;
+            top: 63px;
+        }
+    </style>
+</head>
+<body class="layui-anim layui-anim-up">
+
+<div class="layui-row" id="setX" style="display: none">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" action="#" style="margin-top:20px">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择隐藏分类</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="cate" value="父" title="父分类">
+                    <input type="radio" name="cate" value="子" title="子分类" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="hide"
+                            style="position: relative;left: 20px;top: 10px">立即提交
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary"
+                            style="position: relative;left: 20px;top:10px">重置
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="layui-row" id="setY" style="display: none">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" action="#" style="margin-top:20px">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择显示分类</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="cate" value="父" title="父分类">
+                    <input type="radio" name="cate" value="子" title="子分类" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="showCate"
+                            style="position: relative;left: 20px;top: 10px">立即提交
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary"
+                            style="position: relative;left: 20px;top:10px">重置
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="x-body">
+    <div class="layui-row">
+        <span>货品分类管理</span>
+        <form class="layui-col-md12 x-so">
+            <ul>
+                <li>
+                    <input style="width: 220px;height: 38px;" type="text" name="username" placeholder="请输入分类名" id="field"
+                           autocomplete="off" class="layui-input">
+                </li>
+            </ul>
+        </form>
+        <button id="sreach" class="layui-btn" data-type="reload" lay-filter="sreach" style="position: absolute;left: 260px">查询</button>
+        <a class="layui-btn butt1" style="position: absolute;left: 350px">添加子分类</a>
+        <a class="layui-btn layui-btn-normal butt2" style="position: absolute;left: 456px">添加父分类</a>
+    </div>
+    <!--  <table class="layui-hide" id="test"></table>-->
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">隐藏</a>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="show">显示</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <div class="layui-tab layui-tab-brief" lay-filter="demo"></div>
+
+</div>
+<blockquote class="layui-elem-quote layui-quote-nm layui-hide" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>
+<script src="//res.layui.com/layui/dist/layui.js?t=1554901098009"></script>
+
+<!--一堆ajax和分页js-->
+<script src="../../js/cargo-manage.js"></script>
+</body>
+</html>

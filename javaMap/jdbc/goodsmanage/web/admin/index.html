@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台登录</title>
+    <script src="/lib/jquery-3.3.1.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
+
+</head>
+
+<body>
+<!--外层的DIV-->
+<div class="signin">
+    <!--用户头像区域-->
+    <div class="signin-head">
+        <img src="images/test/m1.png" alt="" class="img-circle">
+    </div>
+
+    <!--表单提交区域-->
+    <div>
+     <form  class="form-signin" role="form" >
+
+             <input type="text" class="form-control" placeholder="用户名" required autofocus name="username"/>
+
+
+             <input type="password" class="form-control" placeholder="密码" required name="pwd"/>
+
+         <button class="btn btn-lg btn-danger btn-block" type="button" id="ajaxSubmit">登录</button>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+       </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("button#ajaxSubmit").on("click", function () {
+            $.ajax({
+                url: "/admin",
+                data: {
+                    "username": $("input[name=username]").val(),
+                    "pwd": $("input[name=pwd]").val()
+                },
+                type: "post",
+                dataType:'json',
+                success: function (backData) {
+                    console.log(backData.status);
+                    if (backData.status==="true") {
+                        location.href='pag.html';
+                    } else {
+                        location.href='admin.html';
+                    }
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+
+            })
+        })
+    })
+</script>
+</body>
+</html>

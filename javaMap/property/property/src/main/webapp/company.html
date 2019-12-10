@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="css/font.css">
+        <link rel="stylesheet" href="css/xadmin.css">
+        <link rel="stylesheet" href="lib/layui/css/layui.css" media="all">
+        <script src="lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/xadmin.js"></script>
+
+
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">`
+                    <div class="layui-card">
+                            <table class="layui-table" lay-data="{url:'/property/msg/?msgClass=0',toolbar: '#toolbarDemo',id:'test'}" lay-filter="test" id="test">
+                                <thead>
+                                <tr>
+                                    <th lay-data="{field:'msgId', sort: true}">ID</th>
+                                    <th lay-data="{field:'msgTitle'}">标题</th>
+                                    <th lay-data="{field:'msgCreatetime'}">创建时间</th>
+                                    <th lay-data="{field:'msgAdmin'}">发布人</th>
+                                    <th lay-data="{field:'msgOther2'}">浏览量</th>
+                                    <th lay-data="{field:'dw_xinzhi',toolbar: '#barDemo'}">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html" id="barDemo">
+            <a title="查看" lay-event="edit">
+                <i class="layui-icon">&#xe63c;</i></a>
+            <a title="修改" lay-event="update">
+                <i class="layui-icon">&#xe642;</i></a>
+        </script>
+<script src="js/jquery.min.js"></script>
+        <script>
+            var json;
+            var update;
+            layui.use('table',
+                function() {
+                var table = layui.table;
+
+                //监听工具条
+                table.on('tool(test)', function(obj){
+                    var data = obj.data
+                  , layEvent = obj.event; //获得 lay-event 对应的值
+                    if(layEvent === 'edit'){
+
+                        //记录浏览信息
+                        $.ajax({
+                            url:'/property/msg/addCount',
+                            type:'post',
+                            data:JSON.stringify({'msgcountPid':data.msgId}),
+                            dataType:'json',
+                            contentType:"application/json",
+                            success:function (){
+                            },
+                            error:function (e){
+                                console.log(e)
+                            }
+                        });
+
+                        //这行是监听到的表格行数据信息，复制给json全局变量。
+                        json = JSON.stringify(data);
+                        layui.use('layer', function () {
+                            layer.open({
+                                title: '查看内容',
+                                maxmin: true,
+                                type: 2,
+                                content: '/notice-detail.html',
+                                area: ['800px', '500px'],
+                                end: function() {
+                                    location.reload();
+                                }
+                            });
+                        });
+                    }
+                    else if(layEvent === 'update'){
+                        update = JSON.stringify(data);
+                        layui.use('layer', function () {
+                            layer.open({
+                                title: '修改内容',
+                                maxmin: true,
+                                type: 2,
+                                content: '/notice-update.html',
+                                area: ['800px', '500px'],
+                                end: function() {
+                                    location.reload();
+                                }
+                            });
+                        });
+                    }
+                });
+            });</script>
+
+    </body>
+
+</html>

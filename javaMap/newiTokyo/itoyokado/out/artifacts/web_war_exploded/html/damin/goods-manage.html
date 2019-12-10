@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!--    <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1554901098009" media="all">-->
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <script type="text/javascript" src="../../js/cookie.js"></script>
+    <script src="../../lib/jquery-3.3.1.min.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        li {
+            float: left;
+            margin-left: 10px;
+        }
+
+        span {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        option {
+            display: inline-block;
+            color: #795DA3;
+            margin-top: 5px;
+        }
+
+        .butt1 {
+            position: absolute;
+            left: 750px;
+            top: 63px;
+        }
+    </style>
+</head>
+<body class="layui-anim layui-anim-up">
+<div class="x-body">
+    <div class="layui-row">
+        <span>物品管理</span>
+        <div class="demoTable">
+            <div class="layui-inline">
+                <input name="id" class="layui-input" id="testReload" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">查询</button>
+        </div>
+    </div>
+    <a class="layui-btn butt1" style="position: absolute;left: 350px">添加</a>
+    <!--  <table class="layui-hide" id="test"></table>-->
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <div class="layui-tab layui-tab-brief" lay-filter="demo"></div>
+    <!-- 添加物品-->
+    <div class="layui-row" id="goodAdd" style="display: none">
+        <div class="layui-col-md10">
+            <form class="layui-form">
+                <div class="layui-form-item" style="top: 20px">
+                    <label for="adgoods" class="layui-form-label">物品名称:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="adgoods" name="goodsNames" required="" lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">父分类</label>
+                    <div class="layui-input-inline">
+                        <label>
+                            <select name="city" lay-verify="required" class="layui-input" id="addparent">
+                                <option aria-checked="true" value="0">个人护理</option>
+                                <option selected>食品饮料</option>
+                                <option>护肤美妆</option>
+                                <option>家居用品</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">子分类</label>
+                    <div class="layui-input-inline">
+                        <select name="city" lay-verify="required" class="layui-input" id="addson">
+                            <option aria-checked="true" value="0">宠物玩具</option>
+                            <option selected>洗护用品</option>
+                            <option selected>食品饮料</option>
+                            <option>护肤美妆</option>
+                            <option>家居用品</option>
+                            <option>商品</option>
+                            <option> 商品</option>
+                            <option> 个护清洁</option>
+                            <option> 个护清洁</option>
+                            <option>个护清洁</option>
+                            <option>个护清洁</option>
+                            <option> 电子产品</option>
+                            <option>电子产品</option>
+                            <option>电子产品</option>
+                            <option> 食品饮料</option>
+                            <option>食品饮料</option>
+                            <option>食品饮料</option>
+                            <option>口腔护理</option>
+                            <option>洗发护理</option>
+                            <option>女性护理</option>
+                            <option> 家庭清洁</option>
+                            <option>生活电器</option>
+                            <option>厨房小电</option>
+                            <option>厨卫大电</option>
+                            <option>新鲜水果</option>
+                            <option>海鲜水产</option>
+                            <option>中外名酒</option>
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="layui-form-item" pane="">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="支持晚上三点到第二天下午10点下单">
+                    </div>
+                </div>-->
+                <div class="layui-form-item">
+                    <button class="layui-btn" lay-filter="add" lay-submit=""
+                            style="position: relative;left: 120px;top: 10px" id="addgoods">
+                        添加
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--修改物品,隐藏,点击后弹出-->
+<div class="layui-row" id="Modifygood" style="display: none">
+    <div class="layui-col-md10">
+        <form class="layui-form">
+            <div class="layui-form-item" style="top: 20px">
+                <label for="gname" class="layui-form-label">物品名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="gname" name="gname" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">父分类</label>
+                <div class="layui-input-inline">
+                    <select name="city" lay-verify="required" class="layui-input" id="fname">
+                        <option aria-checked="true" value="">个人护理</option>
+                        <option selected>食品饮料</option>
+                        <option>护肤美妆</option>
+                        <option>家居用品</option>
+                        <option>商品</option>
+                        <option> 商品</option>
+                        <option> 个护清洁</option>
+                        <option> 个护清洁</option>
+                        <option>个护清洁</option>
+                        <option>个护清洁</option>
+                        <option> 电子产品</option>
+                        <option>电子产品</option>
+                        <option>电子产品</option>
+                        <option> 食品饮料</option>
+                        <option>食品饮料</option>
+                        <option>食品饮料</option>
+                        <option>口腔护理</option>
+                        <option>洗发护理</option>
+                        <option>女性护理</option>
+                        <option> 家庭清洁</option>
+                        <option>生活电器</option>
+                        <option>厨房小电</option>
+                        <option>厨卫大电</option>
+                        <option>新鲜水果</option>
+                        <option>海鲜水产</option>
+                        <option>中外名酒</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">子分类</label>
+                <div class="layui-input-inline">
+                    <label for="sonname"></label><select name="city" lay-verify="required" class="layui-input"
+                                                         id="sonname">
+                    <option aria-checked="true" value="0">宠物玩具</option>
+                    <option selected>洗护用品</option>
+                    <option>宠物零食</option>
+                    <option>女性护理</option>
+                    <option>家庭清洁</option>
+                    <option> 生活电器</option>
+                    <option> 厨房小电</option>
+                    <option> 厨卫大电</option>
+                    <option> 新鲜水果</option>
+                    <option> 海鲜水产</option>
+                    <option> 中外名酒</option>
+                </select>
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="支持晚上三点到第二天下午10点下单" id="upreads">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-filter="add" lay-submit=""
+                        style="position: relative;left: 120px;top: 10px" id="upaddgoods">
+                    修改
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<blockquote class="layui-elem-quote layui-quote-nm layui-hide" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>
+<!--<script src="//res.layui.com/layui/dist/layui.js?t=1554901098009"></script>-->
+
+</body>
+<script>
+    layui.config({
+        version: '1554901098009' //为了更新 js 缓存，可忽略
+    });
+    var use = layui.use(['layer', 'table', 'element'], function () {
+        var layer = layui.layer //弹层
+            , table = layui.table //表格
+            , element = layui.element //元素操作
+            , $ = layui.$;
+        //向世界问个好
+        layer.msg('加载中', {
+            icon: 16
+            , shade: 0.01
+        });
+        //监听Tab切换
+        element.on('tab(demo)', function (data) {
+            layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                tips: 1
+            });
+        });
+        //执行一个 table 实例
+        table.render({
+            elem: '#test'
+            , url: '/goods' //数据接口
+            , title: '用户表'
+            , totalRow: true //开启合计行
+            , cols: [[ //表头
+                {field: 'goods_name', title: '物品名称', sort: true, align: 'center'}
+                , {field: 'category_name', title: '物品分类', sort: true, align: 'center'}
+                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'}
+            ]]
+            , id: 'demoReload'
+            , page: true
+            , height: 515
+        });
+        active = {
+            reload: function () {
+                var demoReload = $('#testReload');
+                //执行重载
+                table.reload('demoReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        id: demoReload.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        $(".butt1").on("click", function () {
+            layer.open({
+                type: 1,
+                area: ['400px', '400px'],
+                title: '添加',
+                offset: 't',
+                shade: 0.6, //遮罩透明度
+                maxmin: true, //允许全屏最小化
+                anim: 1,//0-6的动画形式，-1不开启
+                content: $('#goodAdd')  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                , layEvent = obj.event; //获得 lay-event 对应的值
+            mid = obj.data.id
+            if (layEvent === 'detail') {
+                layer.open({
+                    type: 1,
+                    area: ['400px', '400px'],
+                    title: '修改物品',
+                    anim: 1,//0-6的动画形式，-1不开启
+                    content: $('#Modifygood') //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            } else if (layEvent !== 'del') {
+                layer.confirm('您确定要删除物品' + data.id + '么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    var catgoodid = data.goods.id;
+                   /* layer.alert('隐藏：<br>' + JSON.stringify(catgoodid))*/
+                    $(function () {
+                        $.ajax({
+                            url: "/deltoids",
+                            /* /!* traditional: true,*!/*/
+                            data: {
+                                "catgoodid": catgoodid
+                            },
+                            type: "post",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.flag === "SUCCESS") {
+                                    layer.msg('删除成功!', {
+                                        icon: 16
+                                        , shade: 0.001
+                                    });
+                                } else {
+                                    layer.msg('删除失败!', {
+                                        icon: 16
+                                        , shade: 0.01
+                                    });
+
+                                }
+                            },
+                        })
+                    });
+                });
+            }
+            /*添加*/
+            $("#addgoods").on('click', function () {
+                $.ajax({
+                    url: "/adgodos",
+                    data: {
+                        "adgoods": $("#adgoods").val(),
+                        "addparent": $("#addparent").val(),
+                        "addson": $("#addson").val(),
+                        "pid":pid
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.flag === "SUCCESS") {
+                            layer.msg('添加成功!', {
+                                icon: 16
+                                , shade: 0.001
+                            });
+                        } else {
+                            layer.msg('添加失败!', {
+                                icon: 16
+                                , shade: 0.01
+                            });
+
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e)
+                    }
+                })
+            })
+            /*修改*/
+            $("#upaddgoods").on('click', function () {
+                $.ajax({
+                    url: "/modifiers",
+                    data: {
+                        'gname': $("#gname").val(),
+                        'fname': $("#fname").val(),
+                        'sonname': $("#sonname").val(),
+                        'mid': mid
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.flag === "SUCCESS") {
+                            layer.msg('修改成功!', {
+                                icon: 16
+                                , shade: 0.001
+                            });
+                        } else {
+                            layer.msg('修改失败!', {
+                                icon: 16
+                                , shade: 0.01
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e)
+                    }
+                })
+            })
+        })
+    })
+</script>
+</html>

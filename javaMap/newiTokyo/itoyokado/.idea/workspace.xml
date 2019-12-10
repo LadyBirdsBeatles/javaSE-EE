@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="web:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8ef972c6-b215-446a-aa95-9ed0c67c2021" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/newiTokyo$SysTest_Test1.ic" NAME="SysTest.Test1 Coverage Results" MODIFIED="1557553912768" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.itoyokado.cms.test.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>添加用户</find>
+      <find>html/damin/add_spuser.html</find>
+      <find>layui-btn butt1</find>
+      <find>demo11</find>
+      <find>barDemo</find>
+      <find>sp-</find>
+      <find>roleSet</find>
+      <find>field</find>
+      <find>demoTable</find>
+      <find>type</find>
+      <find>reload</find>
+      <find>findUserByField</find>
+      <find>loading</find>
+      <find>powerform</find>
+    </findStrings>
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="checksumPolicy" value="FAIL" />
+        <option name="failureBehavior" value="FAST" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UkQcLLFcsbWj2ct2cMK9GA1JhN" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557736198224" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="com.zeroturnaround.javarebel.idea.plugin.settings.JRebelSettingsComponent" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\clientResp\svn\myRepositories\Mission\web\js" />
+      <recent name="D:\clientResp\svn\myRepositories\Mission\web\lib" />
+      <recent name="D:\clientResp\Mission\src\properties" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.itoyokado.cms.entity" />
+      <recent name="com.itoyokado.cms.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\备份\新建文件夹\newiTokyo\web\html\damin" />
+      <recent name="E:\备份\新建文件夹\newiTokyo\src\com\itoyokado\cms\serverlet" />
+      <recent name="E:\备份\新建文件夹\newiTokyo\src\com\itoyokado\cms\util" />
+      <recent name="E:\备份\新建文件夹\newiTokyo\src\com\itoyokado\cms\control\servlet" />
+      <recent name="E:\备份\新建文件夹\newiTokyo\src\com\itoyokado\cms\service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.16">
+    <configuration name="ServletList.doPost" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="itoyokado" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itoyokado.cms.serverlet.GitAddressServlet" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itoyokado.cms.serverlet" />
+      <option name="MAIN_CLASS_NAME" value="com.itoyokado.cms.serverlet.ServletList" />
+      <option name="METHOD_NAME" value="doPost" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SysTest.Test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="itoyokado" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itoyokado.cms.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itoyokado.cms.test" />
+      <option name="MAIN_CLASS_NAME" value="com.itoyokado.cms.test.SysTest" />
+      <option name="METHOD_NAME" value="Test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 9.0.16" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <deployment>
+        <artifact name="web:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_itoyokado" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52826" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Debug with VisualVM">
+        <option name="DEBUG_PORT" value="14770" />
+        <option name="visualVMId" value="29105507144200" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="52384" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+        <EnvironmentVariables>
+          <option name="NAME" value="JAVA_TOOL_OPTIONS" />
+          <option name="VALUE" value="-Dfile.encoding=UTF-8" />
+          <option name="IS_PREDEFINED" value="false" />
+        </EnvironmentVariables>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="web:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.SysTest.Test1" />
+      <item itemvalue="JUnit.ServletList.doPost" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.16" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ServletList.doPost" />
+        <item itemvalue="JUnit.SysTest.Test1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <option name="contentProportion" value="0.15595075" />
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\71416\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8ef972c6-b215-446a-aa95-9ed0c67c2021" name="Default Changelist" comment="" />
+      <created>1556355430247</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556355430247</updated>
+      <workItem from="1556355443602" duration="192000" />
+      <workItem from="1556356888613" duration="779000" />
+      <workItem from="1556358425071" duration="284000" />
+      <workItem from="1556507490160" duration="36000" />
+      <workItem from="1556508343535" duration="69000" />
+      <workItem from="1556529628056" duration="165000" />
+      <workItem from="1556548153774" duration="231000" />
+      <workItem from="1557023930749" duration="2296000" />
+      <workItem from="1557028083087" duration="25743000" />
+      <workItem from="1557105881831" duration="24846000" />
+      <workItem from="1557195879810" duration="84000" />
+      <workItem from="1557195991445" duration="1734000" />
+      <workItem from="1557207137525" duration="12036000" />
+      <workItem from="1557277078544" duration="223000" />
+      <workItem from="1557277368256" duration="20529000" />
+      <workItem from="1557310069704" duration="13152000" />
+      <workItem from="1557363446903" duration="4972000" />
+      <workItem from="1557369069878" duration="19523000" />
+      <workItem from="1557455498036" duration="1024000" />
+      <workItem from="1557456976337" duration="13571000" />
+      <workItem from="1557547307312" duration="415000" />
+      <workItem from="1557547894299" duration="175000" />
+      <workItem from="1557548102228" duration="271000" />
+      <workItem from="1557548442544" duration="12005000" />
+      <workItem from="1557561652949" duration="33967000" />
+      <workItem from="1557658967062" duration="10828000" />
+      <workItem from="1557713753837" duration="553000" />
+      <workItem from="1557715483400" duration="12623000" />
+      <workItem from="1575898193829" duration="1118000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1556437488467</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1556437488467</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1556508408171</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1556508408171</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1557024764890</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1557024764890</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1557061527711</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1557061527711</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1557106077186</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1557106077186</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1557219248199</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1557219248199</updated>
+    </task>
+    <task id="LOCAL-00007">
+      <created>1557220477529</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1557220477529</updated>
+    </task>
+    <task id="LOCAL-00008">
+      <created>1557376500927</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1557376500927</updated>
+    </task>
+    <task id="LOCAL-00009">
+      <created>1557459007986</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1557459007987</updated>
+    </task>
+    <task id="LOCAL-00010">
+      <created>1557468386940</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1557468386940</updated>
+    </task>
+    <task id="LOCAL-00011">
+      <created>1557468601443</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1557468601443</updated>
+    </task>
+    <task id="LOCAL-00012">
+      <created>1557469261723</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1557469261723</updated>
+    </task>
+    <task id="LOCAL-00013">
+      <created>1557470743112</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1557470743112</updated>
+    </task>
+    <task id="LOCAL-00014">
+      <created>1557473691948</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1557473691948</updated>
+    </task>
+    <task id="LOCAL-00015">
+      <created>1557479288337</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1557479288337</updated>
+    </task>
+    <task id="LOCAL-00016">
+      <created>1557659259621</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1557659259621</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="SysTest_Test1 - 2019.05.11 at 13h 52m 20s.xml">
+      <configuration name="SysTest.Test1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ServletList_doPost - 2019.05.11 at 14h 23m 17s.xml">
+      <configuration name="ServletList.doPost" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="222" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575898299820">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="222" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1575898299820" />
+    <state x="498" y="161" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575898667095">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="498" y="161" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1575898667095" />
+    <state width="1233" height="352" key="GridCell.Tab.0.bottom" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.0.center" timestamp="1575899313155">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1575899313155" />
+    <state width="1233" height="352" key="GridCell.Tab.0.left" timestamp="1575899313155">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1575899313155" />
+    <state width="1233" height="352" key="GridCell.Tab.0.right" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.1.bottom" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.1.center" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.1.left" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.1.right" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.2.bottom" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.2.bottom/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.2.center" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.2.center/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.2.left" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.2.left/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+    <state width="1233" height="352" key="GridCell.Tab.2.right" timestamp="1575899313156">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1233" height="352" key="GridCell.Tab.2.right/0.0.1536.834@0.0.1536.834" timestamp="1575899313156" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/com/itoyokado/cms/dao/GoodsManageDao.java</url>
+          <line>38</line>
+          <properties class="com.itoyokado.cms.dao.GoodsManageDao" method="delgoods">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>web:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>dom4jrrrrr</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>itoyokado</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31152633" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>车辆出入记录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a href="">首页</a>
+                <a>
+                    <cite>车辆出入记录</cite></a>
+            </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                   <!-- <form class="layui-form layui-col-space5">
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input class="layui-input" placeholder="开始日" name="accessStartdate" id="start"></div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input class="layui-input" placeholder="截止日" name="accessEnddate" id="end"></div>
+
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <select name="accessOther1">
+                                <option value="0" >所有进出车辆</option>
+                                <option value="1">未退场</option>
+                                <option value="2">已退场</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="accesscarcard" placeholder="请输入车牌号" autocomplete="off"
+                                   class="layui-input"></div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <button class="layui-btn" lay-submit lay-filter="sreach">
+                                <i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>-->
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn" id="jioncar">
+                        <i class="layui-icon"></i>模拟进场
+                    </button>
+                </div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="test" lay-filter="test" ></table>
+                    <script type="text/html" id="barDemo">
+                        <button type="button" class="layui-btn" lay-event="edit">确认缴费</button>
+                    </script>
+                    <script type="text/html" id="switchTpl">
+                        <!-- 这里的checked的状态只是演示 -->
+                    </script>
+                    <!-- test 的点击事件-->
+                    <script>
+                        $(function(){
+                            $("#jioncar").click(function(){
+                                $.ajax({
+                                    url:"/car/jioncar", //处理页面的路径
+                                    type:"post", //提交方式
+                                    // contentType:"Application/json",
+                                    dataType:"json", //返回数据的类型
+                                    //TEXT字符串 JSON返回JSON XML返回XML
+                                    success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
+                                        console.log(rep)
+                                        layer.msg(rep.msg, {
+                                            icon: 6,//成功的表情
+                                            time: 3000//1秒关闭（如果不配置，默认是3秒）
+                                        })
+                                    },
+                                    error:function (e) {
+                                        console.log(e);
+                                        layer.msg("添加异常")
+                                    }
+                                });
+                            });
+                        })
+                    </script>
+                    <!--订单列表拿到数据-->
+                    <script>
+                        layui.use('table', function () {
+                            var table = layui.table;
+                            table.render({
+                                elem: '#test'
+                                , url: '/car/access'
+                                , cols: [[
+                                    {field: 'accessId', title: '流水号'}
+                                    , {field: 'accessCarcard', title: '车牌号'}
+                                    , {field: 'accessStartdate', title: '进场时间',templet: function (item) {
+                                            var ss = item.accessStartdate;
+                                            console.log(ss)
+                                            var date = new Date(ss);
+
+                                            var y = date.getFullYear();
+                                            var m = date.getMonth()+1;
+                                            var d = date.getDate()-1;
+                                            var h = date.getHours()+10;
+                                            var mm = date.getMinutes();
+                                            var s = date.getSeconds();
+                                            return y+'-'+m+'-'+d+' '+h+':'+mm+':'+s;
+                                        }}
+                                    , {field: 'accessEnddate', title: '退场时间',templet: function (item) {
+                                            var ss = item.accessEnddate;
+                                            console.log(ss)
+                                            var date = new Date(ss);
+                                            if (ss == null) {
+                                                return "未退场" // 如果为空,返回false
+                                            }else {
+                                            var y = date.getFullYear();
+                                            var m = date.getMonth()+1;
+                                            var d = date.getDate()-1;
+                                            var h = date.getHours()+10;
+                                            var mm = date.getMinutes();
+                                            var s = date.getSeconds();
+                                            return y+'-'+m+'-'+d+' '+h+':'+mm+':'+s;}
+                                        }}
+                                    , {field: 'accessCost', title: '费用'}
+                                    , {field: 'wealth', title: '操作', toolbar: '#barDemo'}
+                                ]]
+                                , page: true
+                            });
+                            //监听行工具
+                            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                                var data = obj.data //获得当前行数据
+                                    , layEvent = obj.event; //获得 lay-event 对应的值
+                                if (layEvent === 'edit') {
+                                    layer.msg(data.accessId)
+                                    $.ajax({
+                                        url:'/car/updatecar',
+                                        type:'post',
+                                        data:{'accessId':data.accessId,
+                                            'accessEnddate':new Date()
+                                        },
+                                        dataType:'json',
+                                        success:function (rep){
+                                            console.log(rep)
+                                            if (rep.returncode == 1) {
+                                                layer.msg(rep.msg, {
+                                                    icon: 6,//成功的表情
+                                                    time: 3000//1秒关闭（如果不配置，默认是3秒）
+                                                })
+                                            }else if (rep.returncode == -1) {
+                                                layer.msg(rep.msg,{
+                                                    icon: 6,//成功的表情
+                                                    time: 3000//1秒关闭（如果不配置，默认是3秒）
+                                                });
+                                            }
+                                            table.reload('test', {
+                                            });
+                                        },
+                                        error:function (e){
+                                            console.log("ajax异常")
+                                            console.log(e)
+                                        }
+                                    });
+                                }
+                            })
+                        });
+                    </script>
+                    <script>
+                        //监听搜索表单提交
+                        $(function  () {
+                            layui.use('form', function(){
+                                var form = layui.form;
+                                //监听提交
+                                form.on('submit(sreach)', function(data){
+                                    console.log(data);
+                                    console.JSON.stringify(data.field);
+                                    $.ajax({
+                                        url:"/car/access", //处理页面的路径
+                                        data:data.field, //要提交的数据是一个JSON
+                                        type:"post", //提交方式
+                                        // contentType:"Application/json",
+                                        dataType:"json", //返回数据的类型
+                                        contentType:"Application/json",
+                                        //TEXT字符串 JSON返回JSON XML返回XML
+                                        success:function(re){ //回调函数 ,成功时返回的数据存在形参data里
+                                            console.log(re)
+
+                                        },
+                                        error:function (e) {
+                                            console.log(e);
+                                            layer.msg("查询异常")
+                                        }
+                                    });
+                                    return false;
+                                });
+                            });
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>layui.use(['laydate', 'form'],
+    function () {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+/* function delAll(argument) {
+     var data = tableCheck.getData();
+     layer.confirm('确认要删除吗？' + data,
+     function(index) {
+         //捉到所有被选中的，发异步进行删除
+         layer.msg('删除成功', {
+             icon: 1
+         });
+         $(".layui-form-checked").not('.header').parents('tr').remove();
+     });
+ }*/</script>
+
+<!--<script type="text/html" id="titleTpl">-->
+    <!--{{ d.accessStartdate. }}-->
+<!--</script>-->
+
+<!--<script type="text/html" id="titleTpl2">-->
+    <!--&lt;!&ndash;{{ d.msgPartendtime.substring(0,d.msgPartendtime.length-5) }}&ndash;&gt;-->
+<!--</script>-->
+
+</html>

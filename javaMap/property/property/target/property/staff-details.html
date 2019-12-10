@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/xadmin.css">
+    <link rel="stylesheet" href="lib/layui/css/layui.css" media="all">
+    <script src="lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/xadmin.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="layui-form-item">
+    <label class="layui-form-label">
+        <span class="x-red">*</span>注意:
+    </label>
+    <div class="layui-form-mid layui-word-aux">
+        <span class="x-red">*</span>修改用户权限时,填入'0'代表修改为管理员,填入'1'修改为客服,填入'其他'修改为无权限
+    </div>
+</div>
+<table class="layui-table" lay-filter="test" id="test"></table>
+
+<script>
+    var parent_json;
+    $(function () {
+        //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
+        parent_json = eval('(' + parent.json + ')');
+        console.log(parent_json);
+        // $("#msgTitle").text(parent_json.msgTitle);
+
+    })
+</script>
+
+<script>
+    layui.use('table',
+        function() {
+            var table = layui.table;
+
+            //展示已知数据
+            table.render({
+                elem: '#test'
+                ,cols: [[ //标题栏
+                    {field: 'adminId', title: 'ID'}
+                    ,{field: 'adminName', title: '用户名', edit:'text'}
+                    ,{field: 'adminPhoneNumber', title: '电话号码', edit:'text'}
+                    ,{field: 'adminPost', title: '职位', edit:'text'}
+                    ,{field: 'adminSalary', title: '薪酬',edit:'text'}
+                    ,{field: 'adminPower', title: '权限', edit:'text',templet: '#titleTpl'}
+                    ,{field: 'adminDate', title: '入职时间'}
+                ]]
+                ,data:[{
+                    "adminId": parent_json.adminId
+                    ,"adminName": parent_json.adminName
+                    ,"adminPhoneNumber": parent_json.adminPhoneNumber
+                    ,"adminPost":parent_json.adminPost
+                    ,"adminSalary":parent_json.adminSalary
+                    ,"adminPower": parent_json.adminPower
+                    ,"adminDate": parent_json.adminDate
+                    // "adminId": 0
+                    // ,"adminName": 1
+                    // ,"adminPhoneNumber": 2
+                    // ,"adminPost":3
+                    // ,"adminSalary":4
+                    // ,"adminPower": 5
+                    // ,"adminDate": 6
+                }]
+                //,skin: 'line' //表格风格
+                ,even: true
+                //,page: true //是否显示分页
+                //,limits: [5, 7, 10]
+                //,limit: 5 //每页默认显示的数量
+            });
+
+            //监听单元格编辑
+            table.on('edit(test)',
+                function(obj) {
+                    var value = obj.value //得到修改后的值
+                        ,
+                        data = obj.data //得到所在行所有键值
+                        ,
+                        field = obj.field; //得到字段
+                    layer.msg('修改成功~');
+                    $.ajax({
+                        url:'/propertyAdmin/staff/update',
+                        type:'post',
+                        data:data,
+                        dataType:'json',
+                        success:function (backData){
+                            console.log(backData)
+                            console.log(backData.status)
+                        },
+                        error:function (e){
+                            console.log(e)
+                        }
+                    });
+
+                });
+        });
+</script>
+
+</body>
+<script type="text/html" id="titleTpl">
+    {{# if(d.adminPower == 0){ }}
+    超级管理员
+    {{# }else if(d.adminPower == 1){ }}
+    客服
+    {{# }else{ }}
+    无权限
+    {{# } }}
+</script>
+
+
+</html>

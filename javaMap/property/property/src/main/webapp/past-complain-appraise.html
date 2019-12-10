@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html class="x-admin-sm" lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>投诉评价</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/xadmin.css">
+    <link rel="stylesheet" href="lib/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--></head>
+<style type="text/css">
+    input {
+        border: none;
+    }
+</style>
+<body>
+<form>
+    <table class="layui-table">
+        <tr>
+            <td>报修编号:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="numbers" name="repairId"></td>
+        </tr>
+        <tr>
+            <td>标题:</td>
+            <td><input type="text" class="layui-input" style="border: none" readonly id="titles" name="repairTitle">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">评价内容</td>
+        </tr>
+        <tr>
+            <td colspan="2"><textarea placeholder="请输入内容" required="required" class="layui-textarea" id="descs"
+                                      name="repairContent"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><div></div> <input class="layui-btn" style="width: 100%" type="submit" id="busubmit" value="确定">确定</div></td>
+        </tr>
+    </table>
+</form>
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script>
+    var parse;
+    function capprais(obj) {
+        parse = JSON.parse(obj);
+        $("#numbers").val(parse.appealId);
+        $("#titles").val(parse.appealTitle);
+        $("#busubmit").on("click", function () {
+            var appealId = $("#numbers").val();
+            var appealEva = $("#descs").val();
+            $.ajax({
+                url: '/complain/evaluate',
+                cache: false,
+                type: "post",
+                dataType: 'json',
+                data: {appealId: appealId, appealEva: appealEva},
+                success: function (data) {
+                    if (data.state == "true") {
+                        layer.msg('已评价');
+                        console.log(data)
+                    } else {
+                        layer.msg('评价失败');
+                    }
+
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+
+            })
+        })
+
+    }
+</script>
+</body>
+</html>

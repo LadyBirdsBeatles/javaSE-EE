@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>账单详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+
+    <script src="lib/layui/layui.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<table class="layui-table">
+    <tr><td><strong>账单编号</strong></td><td id="pay_id"></td></tr>
+    <tr><td><strong>业主姓名</strong></td><td id="pay_name"></td></tr>
+    <tr><td><strong>业主手机</strong></td><td id="pay_phone"></td></tr>
+    <tr><td><strong>住址</strong></td><td id="pay_rooms_size"></td></tr>
+    <tr><td><strong>水费</strong></td><td id="pay_cost_eater"></td></tr>
+    <tr><td><strong>燃气费</strong></td><td id="pay_cost_gas"></td></tr>
+    <tr><td><strong>电费</strong></td><td id="pay_cost_power"></td></tr>
+    <tr><td><strong>空调费</strong></td><td id="pay_cost_air"></td></tr>
+    <tr><td><strong>其他费用</strong></td><td id="pay_cost_other"></td></tr>
+    <tr><td><strong> 总金额</strong></td><td id="pay_sun_money"></td></tr>
+    <tr><td><strong> 所属日期</strong></td><td id="pay_date"></td></tr>
+    <tr><td><strong>是否支付</strong></td><td id="pay_states"></td></tr>
+    <tr><td><strong>缴费时间</strong></td><td id="pay_dates"></td></tr>
+    <tr><td><strong>支付方式</strong></td><td id="pay_cstates"></td></tr>
+    <tr><td><strong>备注</strong></td><td id="pay_comment"></td></tr>
+</table>
+</body>
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+        function child(obj) {
+            var parse = JSON.parse(obj);
+            $("#pay_id").text(parse.costId);
+            $("#pay_name").text(parse.userName);
+            $("#pay_phone").text(parse.userPhonenumber);
+            $("#pay_rooms_size").text(parse.userDress);
+            $("#pay_cost_eater").text(parse.costWtate+" 元");
+            $("#pay_cost_gas").text(parse.costGas+" 元");
+            $("#pay_cost_power").text(parse.costPower+" 元");
+            $("#pay_cost_air").text(parse.costAir+" 元");
+            $("#pay_cost_other").text(parse.costOther+" 元");
+            $("#pay_sun_money").text(parse.sumCost+" 元");
+            $("#pay_date").text(parse.costDate);
+            $("#pay_states").text(parse.costState);
+            $("#pay_comment").text(parse.phone);
+            if (parse.payDate!=null) {
+                $("#pay_dates").text(parse.payDate);
+            }else {
+                $("#pay_dates").text("---------");
+            }
+
+            if (parse.payWay==0) {
+                $("#pay_cstates").text("线下支付");
+            }else if(parse.payWay==1){
+                $("#pay_cstates").text("线上支付");
+            }else {
+                $("#pay_cstates").text("---------");
+            }
+
+            $.ajax({
+                url:"/paydetails",
+                cache:false,
+                type: "post",
+                dataType:"json",
+                data:JSON.stringify(obj.id),
+                contentType:'application/json;charset=utf-8',
+                success:function (data) {
+                   var sun_money=data.costWtate+data.costGas+data.costPower+data.costOther;
+                    $("#pay_id").text(data.payCostid);
+                    $("#pay_name").text(data.userName);
+                    $("#pay_phone").text(data.userPhonenumber);
+                    $("#pay_rooms_size").text(data.userSize);
+                    $("#pay_cost_eater").text(data.costWtate);
+                    $("#pay_cost_gas").text(data.costGas);
+                    $("#pay_cost_power").text(data.costPower);
+                    $("#pay_cost_air").text(data.costAir);
+                    $("#pay_cost_other").text(data.costOther);
+                    $("#pay_sun_money").text(sun_money);
+                    $("#pay_date").text(data.costDate);
+                    $("#pay_states").text(data.costState);
+                    $("#pay_comment").text(data.comment);
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        }
+</script>
+</html>
+

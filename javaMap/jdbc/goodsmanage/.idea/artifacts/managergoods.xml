@@ -1,0 +1,39 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="managergoods">
+    <output-path>$PROJECT_DIR$/../../../../apache/tomcat9/webapps/manager</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="goodsmanage/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="goodsmanage" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="JUnit4" module-name="goodsmanage" />
+          <element id="library" level="project" name="json-lib-2.2.3-jdk15" />
+          <element id="library" level="project" name="commons-beanutils-1.7.0" />
+          <element id="library" level="project" name="jackson-databind-2.9.8" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.15" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.15 (2)" />
+          <element id="library" level="project" name="jdom" />
+          <element id="library" level="project" name="jackson-core-2.9.8" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jdom.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/ezmorph-1.0.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-lang-2.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-core-2.9.8.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-logging-1.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/json-lib-2.2.3-jdk15.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-databind-2.9.8.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.7.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-collections-3.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-httpclient-3.0.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-8.0.15.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-databind-2.9.8-sources.jar" />
+          <element id="library" level="project" name="json" />
+          <element id="library" level="project" name="fastjson-1.2.57" />
+          <element id="library" level="project" name="standard" />
+          <element id="library" level="project" name="jstl" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

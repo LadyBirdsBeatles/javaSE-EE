@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改配送范围</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <!-- layui-->
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css" media="all">
+    <script src="../../lib/layui/layui.all.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" type="text/css">
+    <!--<script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>-->
+    <!-- 搜索-->
+    <script type="text/javascript"
+            src="https://webapi.amap.com/maps?v=1.4.14&key=4fc888714b81ff1b83524573927518ac&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.MouseTool,AMap.Autocomplete,AMap.PolyEditor"></script>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+
+    <style>
+        #container {
+            margin-top: 130px;
+            width: 100%;
+            height: 100%;
+        }
+
+        label {
+            width: 55px;
+            height: 26px;
+            line-height: 26px;
+            margin-bottom: 0;
+        }
+
+        button.btn {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form-item" style="width: 300px;margin-top: 20px;margin-left: 140px ">
+    <label class="layui-form-label">新名称 :</label>
+    <div class="layui-input-block" style="margin-left: 100px">
+        <input name="title" class="layui-input" type="text" placeholder="请输入名称" autocomplete="off"
+               value="蓝" lay-verify="title">
+    </div>
+</div>
+<!--选择颜色-->
+<div class="layui-input-block">
+    <div style="margin-left: 30px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">颜色值 :</label>
+                <div class="layui-input-inline" style="width: 150px;">
+                    <input class="layui-input" id="test-form-input" type="text" placeholder="请选择颜色" value="#1c97f5"
+                           style="width: 200px">
+                    <i id="text"></i>
+                </div>
+                <div class="layui-inline" style="left: -11px;">
+                    <div id="test-form" style="width: 50px;height: 50px"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="container" class="map"></div>
+<div class="input-card" style="width:18rem;">
+    <div class="input-item">
+        <input type="button" class="button" value="编辑范围" onClick="editor.startEditPolygon()"
+               style="margin-right:2rem;"/>
+        <input type="button" class="button" value="范围编辑完成" onClick="editor.closeEditPolygon()"/>
+    </div>
+    <div class="input-item">
+        <button class="btn" id="remove-circle">取消</button>
+        <button class="btn" id="add-circle" style="margin-left:1rem;">确定</button>
+    </div>
+</div>
+<!--颜色选择-->
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer //弹层
+        layui.use('colorpicker', function () {
+            var $ = layui.$
+                , colorpicker = layui.colorpicker;
+            //开启全功能
+            colorpicker.render({
+                elem: '#test-form'
+                , color: '#1c97f5'
+                , predefine: true
+                , alpha: true
+                , done: function (color) {
+                    $('#test-form-input').val(color);
+                    layer.tips('给指定隐藏域设置了颜色值：' + color, this.elem);
+                    color || this.change(color); //清空时执行 change
+                }
+            });
+        })
+    });
+</script>
+//修改功能
+<script>
+    //生成数组用于保存范围的名字
+    var ScopeName = [];
+    //生成范围名字按钮
+    $(function () {
+       $.ajax({
+            url: "/num",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+               $.each(data, function (k, v) {
+                    ScopeName[k] = v.mapName
+                })
+                getMap();
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    })
+    var pointXY = [];//声明数组用户存储经纬度
+    var color = null;//用于颜色中转
+    //点击区域名字获取范围
+    function getMap() {
+        $("div.range").on("click", function () {
+            var mName = $(this).text()
+            $.ajax({
+                url: "/map",
+                data: {"MapName": mName},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (k, v) {
+                        if (mName === v.mapName) {
+                            var a = v.coordinate.split(',');
+                            pointXY[k] = new AMap.LngLat(parseFloat(a[0]), parseFloat(a[1]));
+                            color = v.mapColor;
+                        }
+                    })
+                    createScope(pointXY, color)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+        })
+        //循环把后端得到的范围名字再传给后端进行寻找对应的经纬度
+        var Xy = [];//声明数组用于保存经纬度
+        var mc = null;//用于颜色的中转
+        for (var i = 0; i < ScopeName.length; i++) {
+            $.ajax({
+                url: "/show",
+                traditional: true,
+                data: {"mName": ScopeName[i]},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (k, v) {
+                        var a = v.coordinate.split(',');
+                        Xy[k] = new AMap.LngLat(parseFloat(a[0]), parseFloat(a[1]));
+                        mc = v.mapColor;
+                    })
+                    createScope(Xy, mc)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+        }
+    }
+
+    //生成范围
+    function createScope(point, color) {
+        var polygon = new AMap.LngLat({path:point, strokeWeight: 2, strokeOpacity: 0.5, fillColor: color});  //创建多边形
+        map.overlays(polygon)   //增加多边形
+        return polygon;
+    }
+    //单击按钮修改配送范围
+   $(function () {
+       $("input#save").on("click",function () {
+           $.ajax({
+                url:"/modifyMap",
+                traditional: true,
+                data:{
+                    "mapName":$("input.MapName").val(),
+                    "colorname": $("[name=title]").val(),
+                    "loglat": save(),
+                    "colorvalues": $('#test-form-input').val()
+                },
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                    if (data.flag=="SUCCESS"){
+
+                    }else{
+
+                    }
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        })
+    })
+
+</script>
+<script>
+    var point = [];//存放坐标
+    var color=null;//中转颜色值
+    //点击按钮查询配送范围是否存在
+   $(function() {
+        // jQuery("input.searchScope").on("click", function() {
+       $.ajax({
+            url: "/map",
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                $.each(data,function (k,v) {
+                    var a = v.coordinate.split(',');
+                    point[k] = new AMap.LngLat(parseFloat(a[0]), parseFloat(a[1]));
+                    color=v.mapColor;
+                    $("input.MapName").val(v.mapName)
+                    $("input.newName").val(v.mapName)
+                    $("input.MapColor").val(v.mapColor)
+                })
+                createScope(point,color);
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        })
+        // })
+    })
+
+    //生成多边形覆盖物
+    function createScope(point,color) {
+        var name=null;
+        for (var i = 0; i <point.length; i++) {
+            name=polygon+i;
+            name = new AMap.Polygon(point, {strokeWeight: 2, strokeOpacity: 0.2, fillColor:color});  //创建多边形
+            map.addOverlay(name);   //增加多边形
+        }
+        return name;
+    }
+
+</script>
+<script>
+    var overlays = [];
+    //回调获得覆盖物信息
+    var overlaycomplete = function(e){
+        //将多边形保存到数组
+        overlays.push(e.overlay);
+        //开启编辑模式
+        e.overlay.enableEditing();
+    };
+    //保存地图
+    function save(){
+
+        var map = this.map;
+        var overlays = this.overlays;//获取存放的多边形数组
+
+        var path = overlays[0].getPath();//获取第一个多边形
+        var changePoint=[];
+        for(var i=0;i<path.length;i++){
+            // alert("坐标为：lng:"+path[i].lng+" lat:"+path[i].lat);
+            changePoint[i]=(path[i].lng+","+path[i].lat);
+        }
+        return changePoint;
+    }
+
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    //加载多边形
+    function loadMyOverlay (){
+        var map = this.map;
+        //清空现在有的多边形
+        // clearAll();
+        map.centerAndZoom(this.poi, 18);
+        var myPolygon = new BMap.Polygon(point, this.styleOptions);
+        this.myPolygon = myPolygon;
+
+        try{myPolygon.enableEditing();}catch(e){};
+        //myPolygon.addEventListener("lineupdate",function(e){
+        //});
+        map.addOverlay(myPolygon);
+        //将加载的多边形保存到数组里面
+        overlays.push(myPolygon);
+    }
+
+    function flush() {
+        location.reload();
+    }
+
+</script>
+//地图功能
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        center: [104.044257, 30.550355],//地图中心点
+        zoom: 10 //地图显示的缩放级别
+    });
+    // 默认一个点标记在地图中心点
+    var marker = new AMap.Marker({
+        position: map.getCenter(),
+        offset: new AMap.Pixel(-10, -20),
+        // 设置是否可拖拽
+        draggable: false,
+        cursor: 'move'
+    });
+    marker.setMap(map);
+    // 设置点标记的动画效果，此处为弹跳效果
+    marker.setAnimation('AMAP_ANIMATION_BOUNCE');
+    //编辑范围完成
+    document.getElementById('remove-circle').onclick = function () {
+        mouseTool.close();//关闭绘图工具
+    }
+
+</script>
+<!--<&#45;&#45;5;&#45;&ndash;&gt;-->
+<script>
+
+    /* &#45;----------&#4*/
+    $(function () {
+        //添加
+        $("#add-circle").on("click", function () {
+            $(function () {
+                $.ajax({
+                    url: "/mc",
+                    traditional: true,
+                    data: {
+                        "colorname": $("[name=title]").val(),
+                        "loglat": points,
+                        "colorvalues": $('#test-form-input').val()
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status === "true") {
+                            layer.msg('配送范围修改成功!', function () {
+
+                            })
+
+                        } else {
+                            layer.msg('配送范围修改失败!', function () {
+
+                            })
+
+                        }
+                    }
+                })
+            })
+        })
+    })
+</script>
+</body>
+</html>

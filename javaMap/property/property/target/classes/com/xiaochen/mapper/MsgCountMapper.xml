@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochen.mapper.MsgCountMapper">
+  <resultMap id="BaseResultMap" type="com.xiaochen.pojo.MsgCount">
+    <id column="msgcount_id" jdbcType="INTEGER" property="msgcountId" />
+    <result column="msgcount_pid" jdbcType="INTEGER" property="msgcountPid" />
+    <result column="msgcount_uid" jdbcType="INTEGER" property="msgcountUid" />
+    <result column="msgcount_readtime" jdbcType="TIMESTAMP" property="msgcountReadtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msgcount_id, msgcount_pid, msgcount_uid, msgcount_readtime
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="com.xiaochen.pojo.MsgCount" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msgcount
+    <where>
+      <if test="msgcountPid != null">
+        and msgcount_pid = #{msgcountPid,jdbcType=INTEGER}
+      </if>
+      <if test="msgcountUid != null">
+        and msgcount_uid = #{msgcountUid,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+
+
+  <insert id="insertSelective" parameterType="com.xiaochen.pojo.MsgCount">
+    insert into msgcount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgcountId != null">
+        msgcount_id,
+      </if>
+      <if test="msgcountPid != null">
+        msgcount_pid,
+      </if>
+      <if test="msgcountUid != null">
+        msgcount_uid,
+      </if>
+      <if test="msgcountReadtime != null">
+        msgcount_readtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgcountId != null">
+        #{msgcountId,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountPid != null">
+        #{msgcountPid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountUid != null">
+        #{msgcountUid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountReadtime != null">
+        #{msgcountReadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaochen.pojo.MsgCount">
+    update msgcount
+    <set>
+      <if test="msgcountPid != null">
+        msgcount_pid = #{msgcountPid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountUid != null">
+        msgcount_uid = #{msgcountUid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountReadtime != null">
+        msgcount_readtime = #{msgcountReadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where msgcount_id = #{msgcountId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

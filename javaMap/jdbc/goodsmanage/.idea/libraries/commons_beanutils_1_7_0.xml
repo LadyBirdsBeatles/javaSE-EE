@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="commons-beanutils-1.7.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/driver/commons-beanutils-1.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/driver/commons-collections-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/driver/commons-httpclient-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/driver/commons-lang-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/driver/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/driver/ezmorph-1.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

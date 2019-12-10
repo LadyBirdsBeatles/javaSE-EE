@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>客服信息录入</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <script type="text/javascript" src="../../js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #zzlsr {
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+<form class="layui-form" action="localhost:8080/orderinput.do?func=orderInput" method="post">
+    <span style="font-size: 20px">客服信息录入</span>
+    <br>
+    <br>
+    <br>
+    <span>订单信息</span>
+    <hr>
+    <!--    订单信息-->
+    <!--<div class="layui-form-item">-->
+        <!--<label class="layui-form-label" >系统订单号:</label>-->
+        <!--<div class="layui-input-block">-->
+            <!--<input type="text" name="title" required placeholder= autocomplete="off"-->
+                   <!--class="layui-input" disabled >-->
+        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">货物订单号:</label>
+            <div class="layui-input-block">
+                <input type="text" name="goods_number" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <!--    货物信息-->
+    <span>货物信息</span>
+    <hr>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配送物品分类:</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="category_id" value="1" title="食品饮料">
+            <input type="checkbox" name="category_id" value="2" title="粮油副食">
+            <input type="checkbox" name="category_id" value="3" title="个人护理">
+            <input type="checkbox" name="category_id" value="4" title="护肤美妆">
+            <input type="checkbox" name="category_id" value="5"  title="家居用品">
+            <input type="checkbox" name="category_id" value="6" title="母婴用品">
+            <input type="checkbox" name="category_id" value="7" title="居家生活">
+            <input type="checkbox" name="category_id" value="8" title="促销">
+            <input type="checkbox" name="category_id" value="9" title="其他">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">总重量(kg):</label>
+            <input type="text" name="goods_weight" required placeholder="0.0" class="layui-input"
+                   id="zzlsr">
+        </div>
+        <label class="layui-form-label">商品名称:</label>
+        <div class="layui-input-block">
+            <textarea name="goods_name" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <span>装箱信息</span>
+    <hr>
+    <div class="layui-form-item">
+        <label class="layui-form-label">箱号:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="box_id" required autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">箱费:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="box_price" required autocomplete="off" class="layui-input">
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">续重费:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="box_addprice" required autocomplete="off"
+                   class="layui-input">
+        </div>
+        <input type="radio" name="payway" value="user" title="用户支付" checked>
+        <input type="radio" name="payway" value="itoyokado" title="伊藤支付">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">货物价值:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="goods_price" required autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <span>收货人信息</span>
+    <hr>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话:</label>
+        <div class="layui-input-block">
+            <input type="text" name="user_phone" required autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <label class="layui-form-label">姓名:</label>
+    <div class="layui-input-block">
+        <input type="text" name="user_name" required autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收货地址:</label>
+        <div class="layui-input-block">
+            <textarea name="user_address" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <span>寄件人信息</span>
+    <hr>
+    <label class="layui-form-label">联系电话:</label>
+    <div class="layui-input-block">
+        <input type="text" name="s_tel" required autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名:</label>
+        <div class="layui-input-block">
+            <input type="text" name="s_name" required autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址:</label>
+            <div class="layui-input-block">
+                <textarea name="s_adress" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            // layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/orderinput.do?func=orderInput",
+                type: "post",
+                data: data.field,
+                contentTypeString: "application/json",
+                dataType: "text",
+                success: function (res) {
+                    layer.closeAll('loading');
+                    layer.load(2);
+                    layer.msg("订单录入成功", {icon: 6})
+                    window.location.href = "/html/damin/order-listnew.html";
+                },
+                error: function (e) {
+                    console.log("error:", e);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

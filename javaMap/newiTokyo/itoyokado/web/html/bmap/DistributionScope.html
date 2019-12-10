@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>配送范围</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/font.css">
+  <link rel="stylesheet" href="/css/xadmin.css">
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../../js/xadmin.js"></script>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    button#map{
+      width: 90px;
+      height: 40px;
+      background: rgb(51,141,188);
+      border: none;
+      border-radius:6% ;
+      color: white;
+      margin: 20px;
+      cursor: pointer;
+    }
+    div#title{
+      width: 100%;
+      font-size: 20px;
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+    div.pageInfo{
+      width: 20%;
+      float: left;
+    }
+    div#pageNum{
+      width: 50%;
+      margin: 0 auto;
+    }
+    ul{
+      margin-left: 300px;
+      list-style-type: none;
+    }
+  </style>
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a>
+          <cite>配送范围</cite></a>
+      </span>
+</div>
+<div id="title">配送范围</div>
+<button id="map" onclick="x_admin_show('添加配送范围','add_scope.html')">添加</button>
+<table class="layui-table">
+  <thead>
+  <tr>
+    <th >名字</th>
+    <th>颜色</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<div class="pageInfo">
+  共有<i class="pages"></i>条记录,共<i class="pageTotal"></i>页
+</div>
+<div id="pageNum">
+  <ul class="page">
+    <li></li>
+  </ul>
+
+</div>
+<script src="../../lib/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        //页面加载获取数据
+        $.ajax({
+            url:"/getData",
+            data:{"page":"1"},
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                //循环动态添加数据
+                $.each(data,function (k, v) {
+                    var data=$("<tr><td>"+v.mapName+"</td><td style='color:"+v.mapColor+" '>"+v.mapColor+"</td><td class=\"td-manage\">\n" +
+                        "              <a onclick=\"x_admin_show('修改配送范围','ModifyScope.html')\" title=\"修改配送范围\" href=\"javascript:;\">\n" +
+                        "                <i class=\"layui-icon\" id='setMap' style=\"color:rgb(51,141,188);\">修改</i>\n" +
+                        "              </a>\n" +
+                        "              <a title=\"删除\" onclick=\"member_del(this,'要删除的名字')\" href=\"javascript:;\">\n" +
+                        "                <i id='delete' class=\"layui-icon\" style=\"color:rgb(51,141,188);\">删除</i>\n" +
+                        "              </a>\n" +
+                        "            </td></tr>")
+                    //追加
+                    $("tbody").append(data)
+                })
+                queryName();
+                deleteMap();
+            },
+            error:function (e) {
+                console.log(e)
+            }
+        })
+        //分页
+        $.ajax({
+            url:"/pageMap",
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                //每页显示的记录数
+                $("i.pages").html(data.pages)
+                //总页数
+                $("i.pageTotal").html(data.pageTotal)
+                //循环生成按钮
+                for (var i = 1; i <=data.pageTotal ; i++) {
+                    $("ul.page").append($("<li style='width: 30px;height: 30px;background: rgb(242,242,242);cursor: pointer;text-align: center;line-height: 30px;float: left;margin-left: 3px'>"+i+"</li>"))
+                }
+                //按钮点击事件
+                page();
+            },
+            error:function (e) {
+                console.log(e)
+            }
+        })
+    })
+    //封装页码点击事件,传入页码数,动态生成每页数据
+    function page() {
+        $("li").on("click",function () {
+            $.ajax({
+                url:"/pageNum",
+                data:{"page":$(this).text()},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    $("tbody").empty()
+                    $.each(data,function (k, v) {
+                        var data=$("<tr><td>"+v.mapName+"</td><td style='color:"+v.mapColor+" '>"+v.mapColor+"</td><td class=\"td-manage\">\n" +
+                            "              <a onclick=\"x_admin_show('修改配送范围','ModifyScope.html')\" title=\"修改配送范围\" href=\"javascript:;\">\n" +
+                            "                <i class=\"layui-icon\" style=\"color:rgb(51,141,188);\">修改</i>\n" +
+                            "              </a>\n" +
+                            "              <a title=\"删除\" onclick=\"member_del(this,'要删除的名字')\" href=\"javascript:;\">\n" +
+                            "                <i id='delete' class=\"layui-icon\" style=\"color:rgb(51,141,188);\">删除</i>\n" +
+                            "              </a>\n" +
+                            "            </td></tr>")
+                        $("tbody").append(data)
+                    })
+                    deleteMap();
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        })
+    }
+    //删除地图
+    function deleteMap() {
+        $("i#delete").on("click",function () {
+            $.ajax({
+                url:"/deleteMap",
+                data:{"mName":$(this).parent().parent().siblings().eq(0).text()},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+        })
+    }
+
+    //查询范围名字
+    function queryName() {
+        $("i#setMap").on("click",function () {
+            $.ajax({
+                url:"/queryData",
+                data:{"queryName":$(this).parent().parent().siblings().eq(0).text()},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log()
+                },
+                error:function (e) {
+                    console.log(e)
+                }
+            })
+
+        })
+    }
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+    /*地图-删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+
+    function delAll (argument) {
+
+        var data = tableCheck.getData();
+
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+</body>
+</html>

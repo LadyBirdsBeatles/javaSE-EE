@@ -1,0 +1,23 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: springcloud-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://cloud.beetles.net:8087/eureka/,http://cloud.beetles.cn:8088/eureka/,http://cloud.beetles.com:8089/eureka/
+  instance:
+    instance-id: springcloud-beetles-zuul-9527#修改默仍描述
+    prefer-ip-address: true #显示IP地址
+  #info配置
+info:
+  app.name: xiaochen
+  company.name: com.beetles.cloud
+#网关
+zuul:
+  routes:
+    myuser.serviceId: springcloud-provider-user
+    myuser.path: /beatles/**
+  ignored-services: springcloud-provider-user #忽略 不能用此名称访问
+  prefix: /clouds #设置公共的前缀

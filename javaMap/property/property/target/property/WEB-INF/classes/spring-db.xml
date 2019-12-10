@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--1. 配置数据源:阿里数据源  -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/property?useUnicode=true&amp;characterEncoding=utf-8&amp;userSSL=false&amp;serverTimezone=GMT%2B8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="admin"/>
+    </bean>
+
+    <!--2. 配置mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--dataSource属性指定要用到的连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--configLocation属性指定mybatis的核心配置文件-->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <!-- 扫描pojo, 指定别名 -->
+        <property name="typeAliasesPackage" value="com.bj186.pojo"/>
+    </bean>
+
+    <!--3. 自动扫描mybatis中pojo接口包，
+           并且自动注入第二项创建的sessionfactory，初始化所有的mapper接口对象 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bj186.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>

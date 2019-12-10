@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochen.mapper.RepairMapper">
+  <resultMap id="BaseResultMap" type="com.xiaochen.pojo.Repair">
+    <id column="repair_id" jdbcType="INTEGER" property="repairId" />
+    <result column="repair_title" jdbcType="VARCHAR" property="repairTitle" />
+    <result column="repair_date" jdbcType="TIMESTAMP" property="repairDate" />
+    <result column="repair_content" jdbcType="VARCHAR" property="repairContent" />
+    <result column="repair_state" jdbcType="INTEGER" property="repairState" />
+    <result column="repair_eva" jdbcType="VARCHAR" property="repairEva" />
+    <association property="admin" column="admin_id" select="com.xiaochen.mapper.AdminMapper.ccSelectByIdWX" fetchType="lazy"/>
+    <association property="user" column="repair_uid" select="com.xiaochen.mapper.UserMapper.ccSelectById" fetchType="lazy"/>
+    <collection property="reply" column="repair_id" select="com.xiaochen.mapper.ReplyMapper.ccSelectByRepairId" fetchType="lazy"/>
+  </resultMap>
+  <!--<cache/>-->
+  <select id="ccSelectById" resultMap="BaseResultMap" parameterType="int">
+    select * from repair where repair_id=#{id}
+  </select>
+
+  <select id="ccSelectAll" resultMap="BaseResultMap" statementType="CALLABLE">
+   call fy(
+   #{tablename,mode=IN},
+   #{page,mode=IN},
+   #{limits,mode=IN},
+   #{rows,mode=OUT,jdbcType=INTEGER}
+   )
+  </select>
+
+  <update id="ccUpdateAdmin" >
+      update repair set admin_id=#{adminId} where repair_id=#{id}
+  </update>
+
+    <update id="ccUpdateState" >
+        update repair set repair_state=#{repairState} where repair_id=#{repairId}
+    </update>
+    <select id="shows" resultMap="BaseResultMap">
+    select *from repair
+  </select>
+    <!--未处理-->
+    <!--select *from repair where repair_uid=#{user_id} and  repair_eva='未评价' and repair_state between 0 and 1 order by  repair_id DESC-->
+    <select id="showrepair" resultMap="BaseResultMap">
+select *from repair where repair_uid=#{user_id} and  repair_eva='未评价' and repair_state between 0 and 1 order by  repair_id DESC
+  </select>
+    <!--以处理-->
+    <!-- select *from repair where repair_uid=#{user_id} and repair_state between 2 and 3 order by  repair_id DESC-->
+    <select id="noepair" resultMap="BaseResultMap" statementType="CALLABLE">
+ call pastrepair(
+   #{uid,mode=IN},
+   #{page,mode=IN},
+   #{limits,mode=IN},
+   #{rows,mode=OUT,jdbcType=INTEGER}
+   )
+    </select>
+    <!--未处理结果-->
+    <select id="noReairsResult" resultMap="BaseResultMap">
+    select *from repair where repair_id=#{user_id} and  repair_eva='未评价' and repair_state between 0 and 1 order by  repair_id DESC
+  </select>
+    <!--以处理回复-->
+    <select id="pastReairsResult" resultMap="BaseResultMap">
+    select *from repair where repair_id=#{user_id} and repair_state between 2 and 3 order by  repair_id DESC
+  </select>
+    <sql id="Base_Column_List">
+    repair_id, repair_uid, repair_title, repair_date, repair_content, repair_state, repair_eva,
+    admin_id
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from repair
+        where repair_id = #{repairId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from repair
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xiaochen.pojo.Repair">
+    insert into repair (repair_id, repair_uid, repair_title,
+      repair_date, repair_content, repair_state,
+      repair_eva, admin_id)
+    values (#{repairId,jdbcType=INTEGER}, #{user.userId,jdbcType=INTEGER}, #{repairTitle,jdbcType=VARCHAR},
+      #{repairDate,jdbcType=TIMESTAMP}, #{repairContent,jdbcType=VARCHAR}, #{repairState,jdbcType=INTEGER},
+      #{repairEva,jdbcType=VARCHAR}, #{admin.adminId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xiaochen.pojo.Repair">
+        insert into repair
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="repairId != null">
+                repair_id,
+            </if>
+            <if test="repairUid != null">
+                repair_uid,
+            </if>
+            <if test="repairTitle != null">
+                repair_title,
+            </if>
+            <if test="repairDate != null">
+                repair_date,
+            </if>
+            <if test="repairContent != null">
+                repair_content,
+            </if>
+            <if test="repairState != null">
+                repair_state,
+            </if>
+            <if test="repairEva != null">
+                repair_eva,
+            </if>
+            <if test="adminId != null">
+                admin_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="repairId != null">
+                #{repairId,jdbcType=INTEGER},
+            </if>
+            <if test="repairUid != null">
+                #{repairUid,jdbcType=INTEGER},
+            </if>
+            <if test="repairTitle != null">
+                #{repairTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="repairDate != null">
+                #{repairDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="repairContent != null">
+                #{repairContent,jdbcType=VARCHAR},
+            </if>
+            <if test="repairState != null">
+                #{repairState,jdbcType=INTEGER},
+            </if>
+            <if test="repairEva != null">
+                #{repairEva,jdbcType=VARCHAR},
+            </if>
+            <if test="adminId != null">
+                #{adminId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaochen.pojo.Repair">
+        update repair
+        <set>
+            <if test="user!= null">
+                repair_uid = #{user.userId,jdbcType=INTEGER},
+            </if>
+            <if test="repairTitle != null">
+                repair_title = #{repairTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="repairDate != null">
+                repair_date = #{repairDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="repairContent != null">
+                repair_content = #{repairContent,jdbcType=VARCHAR},
+            </if>
+            <if test="repairState != null">
+                repair_state = #{repairState,jdbcType=INTEGER},
+            </if>
+            <if test="repairEva != null">
+                repair_eva = #{repairEva,jdbcType=VARCHAR},
+            </if>
+            <if test="admin != null">
+                admin_id = #{admin.adminId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where repair_id = #{repairId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiaochen.pojo.Repair">
+    update repair
+    set repair_uid = #{repairUid,jdbcType=INTEGER},
+      repair_title = #{repairTitle,jdbcType=VARCHAR},
+      repair_date = #{repairDate,jdbcType=TIMESTAMP},
+      repair_content = #{repairContent,jdbcType=VARCHAR},
+      repair_state = #{repairState,jdbcType=INTEGER},
+      repair_eva = #{repairEva,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER}
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+</mapper>

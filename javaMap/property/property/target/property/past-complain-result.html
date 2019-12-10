@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>已处理投诉结果回复</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body>
+<table class="layui-table">
+    <tr>
+        <td><strong>标题</strong></td>
+        <td id="repairTile" colspan="3"></td>
+    </tr>
+    <tr>
+        <td><strong>单号</strong></td>
+        <td id="repairId" colspan="3"></td>
+    </tr>
+    <tr>
+        <td><strong>内容</strong></td>
+        <td id="repairContent" colspan="3"></td>
+    </tr>
+    <tr>
+        <td><strong>联系人姓名</strong></td>
+        <td id="userName"></td>
+        <td><strong>联系电话</strong></td>
+        <td id="phoneNumber"></td>
+    </tr>
+    <tr>
+        <td><strong>地址</strong></td>
+        <td id="userDress"></td>
+        <td><strong>提交时间</strong></td>
+        <td id="repairDate"></td>
+    </tr>
+    <tr>
+        <td><strong>状态</strong></td>
+        <td id="repairState"></td>
+        <td><strong>我的评价</strong></td>
+        <td id="repairEva"></td>
+    </tr>
+</table>
+
+</body>
+
+<script src="lib/layui/layui.js"></script>
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form = layui.form
+    })
+    function reply(obj) {
+        $.ajax({
+            url: "/complain/pastresult",
+            cache: false,
+            type: "post",
+            dataType: 'json',
+            data: {appealId: obj},
+            /* contentType: 'application/json;charset=utf-8',*/
+            success: function (data) {
+                var State;
+                if (data.appealState == 0) {
+                    State = "未处理";
+                } else if (data.appealState == 1) {
+                    State = "处理中";
+                }
+                $("#repairTile").text(data.appealTitle)
+                $("#repairId").text(data.appealId)
+                $("#repairContent").text(data.appealContent)
+                $("#userName").text(data.userName)
+                $("#phoneNumber").text(data.phoneNumber)
+                $("#userDress").text(data.userDress)
+                $("#repairDate").text(data.appealDate)
+                $("#repairState").text(State)
+                $("#repairEva").text(data.appealEva)
+                var table = $("table")
+                if (data.adminName != null) {
+                    table.append("<tr><td><strong>跟进处理人员</strong></td><td id='adminName' colspan='3'>" + (data.adminName + "</td></tr>"))
+                } else {
+                    table.append("<tr><td><strong>跟进处理人员</strong></td><td id='adminName' colspan='3'></td></tr>")
+                }
+                table.append("<tr ><td rowspan='" + (data.reply.length + 2) + "' id='hft'>处理内容</td></tr>")
+                $.each(data.reply, function (i, o) {
+                    table.append("<tr><td colspan='3'><div>" + o.replyContent + "</div><div style='text-align: right'>" + o.name + "&nbsp&nbsp" + o.replyDate + "</div></td></tr>")
+                })
+                table.append("<tr id='bn'><td colspan='3'><button type=\"button\" class=\"layui-btn\" onclick='hf()'>回复</button></td></tr>")
+            }
+        });
+    }
+
+    //回复
+    function hf() {
+        $("#bn").html("<td colspan='3'>" +
+            "<form class=\"layui-form layui-form-pane\" action=\"\">" +
+            "<div class=\"layui-form-item layui-form-text\">\n" +
+            "    <div class=\"layui-input-block\">\n" +
+            "      <textarea placeholder=\"请输入内容\" class=\"layui-textarea\"></textarea>\n" +
+            "    </div>\n" +
+            "</div>" +
+            "</form><button type=\"button\" class=\"layui-btn layui-btn-sm\" onclick='ys(1)'>确定</button><button type=\"button\" class=\"layui-btn layui-btn-sm\" onclick='ys()'>取消</button>" +
+            "</td>"
+        )
+    }
+
+    //确认回复
+    function ys(obj) {
+        if (obj == 1) {
+            if ($("textarea").val().trim() == "") {
+                layer.msg("请输入内容")
+                return;
+            }
+            var myDate = new Date();
+            var year = myDate.getFullYear();        //获取当前年
+            var month = myDate.getMonth() + 1;   //获取当前月
+            var date = myDate.getDate();            //获取当前日
+            var h = myDate.getHours();              //获取当前小时数(0-23)
+            var m = myDate.getMinutes();
+            var s = myDate.getUTCSeconds();
+            //获取当前分钟数(0-59)
+            var now = year + '-' + month + "-" + date + " " + h + ':' + m + ':' + s
+            $("#hft").attr("rowspan", eval($("#hft").attr("rowspan") + "+1"))
+            $("#bn").before("<tr><td colspan='3'><div>" + $("textarea").val() + "</div><div style='text-align: right'>" + $("#userName").text() + "&nbsp&nbsp" + now + "</div></td></tr>")
+            $.ajax({
+                url: "/complain/comreact",
+                data: {replyContent: $("textarea").val(), replyAppid: $("#repairId").text()},
+                dataType: "json",
+                type: "post",
+                success: function (data) {
+                }
+            })
+            $("#bn").html("<td colspan='3'><button type='button' class='layui-btn' onclick='hf()'>回复</button></td>")
+        } else {
+            $("#bn").html("<td colspan='3'><button type='button' class='layui-btn' onclick='hf()'>客服回复</button></td>")
+        }
+    }
+</script>
+</html>
+
+
+
+
